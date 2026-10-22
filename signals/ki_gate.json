@@ -1,7 +1,7 @@
 {
-  "updated_at": "2026-10-22T13:56:00",
-  "source": "Grok Automation",
+  "updated_at": "2026-10-22T14:05:00",
+  "source": "system_cleanup",
   "blocks": [],
-  "half": ["ENR.DE"],
-  "notes": "Algo h\u00e4lt alle 4 Ticker (Scores 28-43). Kein klares Risiko/These-Widerspruch f\u00fcr Block. ENR.DE im KI-Depot stark im Minus (~-10%, These intakt aber Unsicherheit), daher half. Algo f\u00fchrt, weniger Eingriff."
+  "half": [],
+  "notes": "Bereinigt: half nur sinnvoll bei Kauf/Verkauf-Signalen. Bei halten leer lassen."
 }

@@ -1,16 +1,18 @@
 # Kurz-Prompt: nur KI-Gate für Hybrid (Variante A)
 
-Du darfst **keine Käufe im Hybrid-Depot** ausführen.  
-Du pflegst nur die Datei `signals/ki_gate.json` im Repo **stock-hybrid-paper-trading**.
+Du darfst **keine Käufe/Verkäufe** im Hybrid-Depot ausführen.  
+Du pflegst nur:
+
+1. `signals/ki_gate.json`
+2. optional `signals/watchlist.json`
 
 ## Aufgabe
 
-1. Lies die neuesten Algo-Signale (Repo stock-algo-paper-trading, `state/decisions_log.json` letzter Lauf).
-2. Lies KI-Kontext (stock-paper-trading: last_run_status, portfolio, Gehirn/Watchlist wenn vorhanden).
-3. Entscheide **nur**:
-   - `blocks`: Ticker, die der Hybrid **nicht** kaufen/verkaufen soll
-   - `half`: Ticker, bei denen die Stückzahl **halbiert** wird
-4. Schreibe / pushe:
+1. Lies Algo-Signale: `stock-algo-paper-trading` → `state/decisions_log.json` (letzter Lauf).
+2. Lies KI-Kontext: `stock-paper-trading` (Status, Portfolio, Watchlist/Gehirn).
+3. **Nur Ticker mit Aktion kaufen/nachkauf/reinvestition/teilverkauf** dürfen in `blocks` oder `half`.
+4. Bei reinem **halten**: **weder block noch half** für diesen Ticker (sinnlos, wird ignoriert).
+5. Schreibe `signals/ki_gate.json`:
 
 ```json
 {
@@ -22,11 +24,21 @@ Du pflegst nur die Datei `signals/ki_gate.json` im Repo **stock-hybrid-paper-tra
 }
 ```
 
+6. Optional Watchlist `signals/watchlist.json`:
+
+```json
+{
+  "updated_at": "YYYY-MM-DDTHH:MM:SS",
+  "scale": "1 = hoch, 2 = mittel, 3 = niedrig",
+  "items": [
+    {"ticker": "…", "title": "…", "priority": 1, "status": "active", "reason": "…", "added_at": "YYYY-MM-DD"}
+  ]
+}
+```
+
 ## Regeln
 
-- Weniger blocken als erlauben (Algo führt).
-- Blocken nur bei klarem Risiko / widersprüchlicher These.
-- Half z. B. bei unsicherer Lage oder wenn KI dieselbe Position schon stark im Minus hält.
-- Keine Fantasie-Ticker. Nur Ticker aus den Algo-Signalen oder Universum.
-
-Danach: Hybrid-Workflow `run_hybrid_daily` (Actions) ausführen bzw. warten auf Cron.
+- Algo führt – wenig eingreifen.
+- **half** = halbe Stückzahl nur wenn wirklich ein Trade ansteht.
+- **block** nur bei klarem Risiko.
+- Keine Fantasie-Ticker.
