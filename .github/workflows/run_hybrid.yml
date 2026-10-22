@@ -1,0 +1,31 @@
+name: Run Hybrid Daily
+
+on:
+  workflow_dispatch:
+  schedule:
+    # 21:30 UTC ≈ 23:30 CEST – nach typischem Algo-Lauf
+    - cron: "30 21 * * 1-5"
+
+jobs:
+  hybrid:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+      - run: python run_hybrid_daily.py
+      - name: Commit state
+        run: |
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git config user.name "github-actions[bot]"
+          git add state/ signals/algo_signals.json || true
+          if git diff --staged --quiet; then echo none; else
+            git commit -m "Hybrid daily state [skip ci]"
+            git push
+          fi

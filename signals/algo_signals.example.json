@@ -1,0 +1,13 @@
+{
+  "date": "2026-10-22T23:00:00",
+  "source": "stock-algo-paper-trading",
+  "signals": [
+    {
+      "ticker": "SAP.DE",
+      "action": "halten",
+      "shares": null,
+      "score": 50,
+      "reason": "Beispiel"
+    }
+  ]
+}

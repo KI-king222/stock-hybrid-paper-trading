@@ -1,0 +1,15 @@
+{
+  "mode": "hybrid_A",
+  "starting_cash": 10000.0,
+  "fee_per_trade": 1.0,
+  "max_position_pct_of_equity": 35.0,
+  "algo_owner": "KI-king222",
+  "algo_repo": "stock-algo-paper-trading",
+  "algo_branch": "main",
+  "ki_owner": "KI-king222",
+  "ki_repo": "stock-paper-trading",
+  "ki_branch": "main",
+  "universe": ["SAP.DE", "HNR1.DE", "MUV2.DE", "ENR.DE"],
+  "allow_algo_sells": true,
+  "notes": "Variante A: Algo führt, KI blockt oder halbiert"
+}
