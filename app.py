@@ -1,11 +1,14 @@
-"""Streamlit Hybrid – inkl. Watchlist."""
+"""Streamlit Hybrid – Live-Kurse beim Laden wie KI-Version."""
 from __future__ import annotations
 
 import json
+import math
 from pathlib import Path
+from typing import Dict
 
 import pandas as pd
 import streamlit as st
+import yfinance as yf
 
 from charts import render_position_charts
 
@@ -24,7 +27,9 @@ st.markdown(
 )
 
 st.title("🔗 Hybrid Paper Trading")
-st.caption("Variante A · Algo schlägt vor · KI blockt oder halbieren · eigenes Depot")
+st.caption(
+    "Variante A · Kurse/Charts live beim Öffnen · Trades nur nach Hybrid-Workflow"
+)
 
 
 def load(path: Path):
@@ -56,6 +61,21 @@ def last_action_date(trades, ticker) -> str:
     return "–"
 
 
+def fetch_live_prices(tickers) -> Dict[str, float]:
+    out = {}
+    for t in tickers:
+        try:
+            h = yf.Ticker(t).history(period="5d")
+            if h is None or h.empty:
+                continue
+            p = float(h["Close"].dropna().iloc[-1])
+            if math.isfinite(p) and p > 0:
+                out[t] = p
+        except Exception:
+            pass
+    return out
+
+
 pf = load(STATE / "portfolio_state.json")
 status = load(STATE / "last_run_status.json")
 log = load(STATE / "hybrid_log.json")
@@ -68,6 +88,20 @@ if (ROOT / "RULES.md").exists():
 
 positions = (pf or {}).get("positions") or {}
 trades = (pf or {}).get("trades") or []
+
+live_ok = False
+if positions:
+    live = fetch_live_prices(list(positions.keys()))
+    if live:
+        live_ok = True
+        for t, p in live.items():
+            if t in positions:
+                positions[t]["current_price"] = p
+
+if live_ok:
+    st.caption("Kurse: **live** beim Seitenaufruf · Bestand/Trades: letzter Hybrid-Lauf")
+elif positions:
+    st.caption("Kurse: gespeicherter Stand (Live-Abruf fehlgeschlagen)")
 
 if pf:
     cash = float(pf.get("cash") or 0)
@@ -117,19 +151,16 @@ if wl and wl.get("items"):
     if items:
         st.dataframe(
             pd.DataFrame([{
-                "Ticker": i.get("ticker"),
-                "Name": i.get("title"),
-                "Priorität": i.get("priority"),
-                "Seit": i.get("added_at"),
+                "Ticker": i.get("ticker"), "Name": i.get("title"),
+                "Priorität": i.get("priority"), "Seit": i.get("added_at"),
                 "Grund": i.get("reason"),
             } for i in sorted(items, key=lambda x: x.get("priority") or 99)]),
-            use_container_width=True,
-            hide_index=True,
+            use_container_width=True, hide_index=True,
         )
     else:
         st.info("Keine aktiven Einträge")
 else:
-    st.info("Noch leer – Automation kann `signals/watchlist.json` füllen.")
+    st.info("Noch leer.")
 
 st.divider()
 st.subheader("Letzter Lauf")
@@ -172,7 +203,7 @@ if log and log.get("runs"):
         st.dataframe(pd.DataFrame(last["decisions"]), use_container_width=True, hide_index=True)
 
 st.subheader("KI-Gate (aktuell)")
-st.caption("half/block nur bei Kauf/Verkauf relevant – bei halten wirkungslos")
+st.caption("half/block nur bei Kauf/Verkauf – bei halten wirkungslos")
 if gate:
     st.write(f"**Blocks:** {gate.get('blocks') or '–'}")
     st.write(f"**Half:** {gate.get('half') or '–'}")
