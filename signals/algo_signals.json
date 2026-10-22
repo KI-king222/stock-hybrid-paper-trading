@@ -1,5 +1,5 @@
 {
-  "date": "2026-10-22T10:15:17",
+  "date": "2026-10-22T10:23:48",
   "signals": [
     {
       "ticker": "SAP.DE",
@@ -33,5 +33,11 @@
       "reason": "Halten · P&L +2.6% · Score 43",
       "source_date": "2026-10-21T21:23:50"
     }
-  ]
+  ],
+  "scores": {
+    "MUV2.DE": 43.5,
+    "HNR1.DE": 28.1,
+    "SAP.DE": 42.4,
+    "ENR.DE": 43.0
+  }
 }
