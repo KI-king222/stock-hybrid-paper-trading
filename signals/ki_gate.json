@@ -1,7 +1,7 @@
 {
-  "updated_at": null,
-  "source": "manual_or_automation",
+  "updated_at": "2026-10-22T13:56:00",
+  "source": "Grok Automation",
   "blocks": [],
-  "half": [],
-  "notes": "Leer = kein KI-Eingriff. Automation kann Ticker in blocks oder half eintragen."
+  "half": ["ENR.DE"],
+  "notes": "Algo h\u00e4lt alle 4 Ticker (Scores 28-43). Kein klares Risiko/These-Widerspruch f\u00fcr Block. ENR.DE im KI-Depot stark im Minus (~-10%, These intakt aber Unsicherheit), daher half. Algo f\u00fchrt, weniger Eingriff."
 }
