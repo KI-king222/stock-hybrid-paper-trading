@@ -1,4 +1,4 @@
-"""Streamlit Hybrid – Anordnung wie gewünscht."""
+"""Streamlit Hybrid – inkl. Watchlist."""
 from __future__ import annotations
 
 import json
@@ -23,7 +23,6 @@ st.markdown(
     unsafe_allow_html=True,
 )
 
-# --- 1) Titel + Caption ---
 st.title("🔗 Hybrid Paper Trading")
 st.caption("Variante A · Algo schlägt vor · KI blockt oder halbieren · eigenes Depot")
 
@@ -61,6 +60,7 @@ pf = load(STATE / "portfolio_state.json")
 status = load(STATE / "last_run_status.json")
 log = load(STATE / "hybrid_log.json")
 gate = load(ROOT / "signals" / "ki_gate.json")
+wl = load(ROOT / "signals" / "watchlist.json")
 cfg = load(ROOT / "config.json") or {}
 rules_md = ""
 if (ROOT / "RULES.md").exists():
@@ -69,7 +69,6 @@ if (ROOT / "RULES.md").exists():
 positions = (pf or {}).get("positions") or {}
 trades = (pf or {}).get("trades") or []
 
-# --- 2) Kennzahlen ---
 if pf:
     cash = float(pf.get("cash") or 0)
     ext = float(pf.get("external_profit") or 0)
@@ -90,7 +89,6 @@ if pf:
 else:
     st.write("Kein portfolio_state.json – noch kein Lauf.")
 
-# --- 3) Offene Positionen ---
 st.divider()
 st.subheader("Offene Positionen")
 if positions:
@@ -111,31 +109,49 @@ if positions:
 else:
     st.write("Keine Positionen.")
 
-# --- 4) Letzter Lauf ---
+st.divider()
+st.subheader("Watchlist")
+st.markdown("**Skala 1–3**  \n1 = hoch · 2 = mittel · 3 = niedrig")
+if wl and wl.get("items"):
+    items = [i for i in wl["items"] if i.get("status", "active") == "active"]
+    if items:
+        st.dataframe(
+            pd.DataFrame([{
+                "Ticker": i.get("ticker"),
+                "Name": i.get("title"),
+                "Priorität": i.get("priority"),
+                "Seit": i.get("added_at"),
+                "Grund": i.get("reason"),
+            } for i in sorted(items, key=lambda x: x.get("priority") or 99)]),
+            use_container_width=True,
+            hide_index=True,
+        )
+    else:
+        st.info("Keine aktiven Einträge")
+else:
+    st.info("Noch leer – Automation kann `signals/watchlist.json` füllen.")
+
 st.divider()
 st.subheader("Letzter Lauf")
 if status:
     st.info(status.get("headline") or status.get("last_run") or "")
 else:
-    st.warning("Noch kein Hybrid-Lauf – Actions **Run Hybrid Daily** starten.")
+    st.warning("Noch kein Hybrid-Lauf.")
 
-# --- 5) Graphen ---
 st.divider()
 render_position_charts(positions)
 
-# --- 6) Trade History ---
 st.divider()
 st.subheader("Trade-Historie / Change-Katalog")
 if trades:
-    trade_rows = [{
+    st.dataframe(pd.DataFrame([{
         "Datum": fmt_dt(t.get("date")),
         "Aktion": str(t.get("action") or "").upper(),
         "Ticker": t.get("ticker"),
         "Stück": t.get("shares"),
         "Kurs": round(float(t.get("price") or 0), 2),
         "Begründung": t.get("reason") or "",
-    } for t in trades]
-    st.dataframe(pd.DataFrame(trade_rows), use_container_width=True, hide_index=True)
+    } for t in trades]), use_container_width=True, hide_index=True)
 else:
     st.write("Noch keine Trades.")
 
@@ -144,12 +160,9 @@ if log and log.get("runs"):
     for run in reversed(log["runs"][-20:]):
         date = fmt_dt(run.get("date"))
         with st.expander(f"Hybrid: {date} – Vermögen {run.get('wealth', '–')} €", expanded=False):
-            st.write(run.get("source") or "")
-            dec = run.get("decisions") or []
-            if dec:
-                st.dataframe(pd.DataFrame(dec), use_container_width=True, hide_index=True)
+            if run.get("decisions"):
+                st.dataframe(pd.DataFrame(run["decisions"]), use_container_width=True, hide_index=True)
 
-# --- 7) Letzte Entscheidungen (Gate + Decisions aus letztem Lauf) ---
 st.divider()
 st.subheader("Letzte Entscheidungen")
 if log and log.get("runs"):
@@ -157,10 +170,9 @@ if log and log.get("runs"):
     st.write(f"**{fmt_dt(last.get('date'))}** · {last.get('source', '')}")
     if last.get("decisions"):
         st.dataframe(pd.DataFrame(last["decisions"]), use_container_width=True, hide_index=True)
-else:
-    st.write("Noch keine Entscheidungen.")
 
 st.subheader("KI-Gate (aktuell)")
+st.caption("half/block nur bei Kauf/Verkauf relevant – bei halten wirkungslos")
 if gate:
     st.write(f"**Blocks:** {gate.get('blocks') or '–'}")
     st.write(f"**Half:** {gate.get('half') or '–'}")
@@ -168,16 +180,10 @@ if gate:
 else:
     st.write("Keine ki_gate.json")
 
-# --- 8) Rest: Regelwerk ---
 st.divider()
 st.subheader("Regelwerk")
-with st.expander("Hybrid-Regeln (Variante A)", expanded=False):
-    st.markdown(
-        """
-**Algo** liefert Signale. **KI-Gate** darf nur **block** oder **half**.  
-Leeres Depot → Startkauf score-gewichtet. Kein Auto-Verkauf im Minus. Gebühr 1 € (Paper).
-"""
-    )
+with st.expander("Hybrid-Regeln", expanded=False):
+    st.markdown("Algo führt. KI-Gate: nur block/half bei Trade-Signalen. Kein Auto-Verkauf im Minus.")
 with st.expander("Config", expanded=False):
     st.json(cfg) if cfg else st.write("–")
 with st.expander("RULES.md", expanded=False):
