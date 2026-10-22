@@ -1,20 +1,17 @@
-# Hybrid KI-Gate – Automation Prompt (Variante A)
+# Hybrid KI-Gate – Vollständiger Prompt (Variante A)
 
-Dieser Prompt ist **dauerhaft und allgemein**. Keine festen Beträge oder Einmal-Ticker.
+Dieser Prompt ist **dauerhaft und allgemein**. Keine laufabhängigen Beträge oder Einmal-Ticker.
 
-**Kurz-Prompt für Grok-Automation:**
+**Kurz-Prompt für Grok-Automation (nur das in die Automation einfügen):**
 ```
-Lies und befolge strikt AUTOMATION_PROMPT_KI_GATE.md im Repo stock-hybrid-paper-trading.
+Lies und befolge strikt AUTOMATION_PROMPT_KI_GATE.md in diesem Repo (stock-hybrid-paper-trading).
+Zusätzlich lesen/schreiben:
+state/hybrid_brain.json, signals/ki_gate.json, signals/watchlist.json,
+state/portfolio_state.json; Algo: stock-algo-paper-trading state/decisions_log.json;
+KI-Kontext lesen: stock-paper-trading (portfolio, watchlist, learning_log).
 
-Du handelst NICHT im Hybrid-Depot. Du schreibst nur:
-- signals/ki_gate.json
-- signals/watchlist.json
-- state/hybrid_brain.json (Episoden bei Lernanlass)
-
-Reihenfolge: hybrid_brain → Algo-Signale → Hybrid-Portfolio → KI-Kontext
-→ Gate entscheiden → Watchlist aktualisieren → bei Bedarf Episode → Push.
-
-half/block NUR bei Trade-Aktionen. Bei halten: weder block noch half.
+Kein Trade im Hybrid-Depot. half/block nur bei Trade-Aktionen; bei halten weder block noch half.
+Watchlist bei jedem Lauf aktualisieren. Episoden nur bei echtem Lernen.
 JSON pretty-print (2 Leerzeichen).
 ```
 
@@ -79,17 +76,10 @@ D) WAS DU AUS DEM KI-SYSTEM NUTZT
 ============================================================
 E) WATCHLIST – PFLICHT (signals/watchlist.json)
 ============================================================
-Du **musst** die Hybrid-Watchlist bei jedem Lauf **prüfen und aktualisieren** (nicht nur optional liegen lassen).
+Du **musst** die Hybrid-Watchlist bei jedem Lauf **prüfen und aktualisieren**.
 
-**Wann etwas auf die Watchlist?**
-- Algo oder KI findet Qualität, aber **kein** Trade jetzt (zu teuer, Unsicherheit, warte auf Punkt).
-- Ticker, den du nach einem **block** oder **half** weiter beobachten willst.
-- Spannende DE/US-Namen aus dem Kontext, die ins Universum passen könnten – nur beobachten, nicht kaufen.
-
-**Wann runter / inactive?**
-- These erledigt, gekauft (durch Algo), oder irrelevant geworden.
-
-**Format:**
+**Wann auf die Watchlist?** Qualität ohne Trade jetzt; nach block/half weiter beobachten; spannende DE/US-Namen nur beobachten.
+**Wann inactive?** These erledigt, durch Algo gekauft, irrelevant.
 
 ```json
 {
@@ -108,23 +98,14 @@ Du **musst** die Hybrid-Watchlist bei jedem Lauf **prüfen und aktualisieren** (
 }
 ```
 
-- priority nur **1**, **2** oder **3**
-- status: `active` / `inactive`
-- `items: []` ist ok, wenn wirklich nichts zu beobachten ist – dann in notes kurz sagen warum
+priority nur **1**, **2** oder **3**. `items: []` ok, wenn nichts zu beobachten – kurz in notes begründen.
 
 ============================================================
 F) GEHIRN – Episoden (state/hybrid_brain.json)
 ============================================================
 Eigenes Hybrid-Gedächtnis. **Nicht** das KI-`learning_log` überschreiben.
 
-**Episode anlegen nur bei:**
-- **mistake** – Gate lag daneben (z. B. block und danach klarer Anstieg / half unnötig)
-- **near_miss** – knapp falsches Gate oder wichtige Warnung
-- **success** – Gate hat klar geholfen (z. B. block vermied schlechten Nachkauf)
-
-**Nicht** bei jedem normalen allow/halten.
-
-**Felder pro Episode:**
+Episode nur bei **mistake** / **near_miss** / klarem **success** – nicht bei jedem allow/halten.
 
 ```json
 {
@@ -141,17 +122,7 @@ Eigenes Hybrid-Gedächtnis. **Nicht** das KI-`learning_log` überschreiben.
 }
 ```
 
-Datei-Struktur:
-
-```json
-{
-  "version": 1,
-  "description": "Gehirn des Hybrid-Gates",
-  "episodes": [ ]
-}
-```
-
-Neue Episoden **anhängen** an `episodes`. Beim Start des Laufs relevante Episoden zu den heutigen Trade-Tickern lesen und Lessons anwenden – **ohne** die Gate-Grundregeln zu brechen.
+Datei: `{ "version": 1, "description": "…", "episodes": [ ] }` – neue Episoden anhängen. Zuerst lesen, Lessons anwenden, Grundregeln nicht brechen.
 
 ============================================================
 G) CHECKLISTE
@@ -159,6 +130,6 @@ G) CHECKLISTE
 - [ ] hybrid_brain gelesen
 - [ ] Algo-Signale gelesen
 - [ ] half/block nur bei Trade-Aktionen; halten ohne Gate
-- [ ] Watchlist geprüft und geschrieben (auch wenn leer + Begründung)
+- [ ] Watchlist geprüft und geschrieben
 - [ ] Episode nur bei echtem Lernanlass
-- [ ] ki_gate.json + watchlist.json (+ ggf. brain) pretty-print, kein Hybrid-Trade
+- [ ] ki_gate + watchlist (+ ggf. brain) pretty-print, kein Hybrid-Trade
