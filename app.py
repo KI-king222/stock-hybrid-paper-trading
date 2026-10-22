@@ -1,4 +1,4 @@
-"""Streamlit Hybrid Paper Trading – Charts, Change-Katalog, Regelwerk."""
+"""Streamlit Hybrid – Charts, Daten an Positionen/Aktionen, Regelwerk."""
 from __future__ import annotations
 
 import json
@@ -23,7 +23,7 @@ st.markdown(
     unsafe_allow_html=True,
 )
 st.title("🔗 Hybrid Paper Trading")
-st.caption("Variante A · Algo schlägt vor · KI blockt oder halbiert · eigenes Depot")
+st.caption("Variante A · Algo schlägt vor · KI blockt oder halbieren · eigenes Depot")
 
 
 def load(path: Path):
@@ -35,27 +35,47 @@ def load(path: Path):
         return None
 
 
+def fmt_dt(s) -> str:
+    if not s:
+        return "–"
+    t = str(s).replace("T", " ")[:19]
+    return t
+
+
+def first_buy_date(trades, ticker) -> str:
+    for tr in trades or []:
+        if tr.get("ticker") == ticker and str(tr.get("action")).lower() == "buy":
+            return fmt_dt(tr.get("date"))
+    return "–"
+
+
+def last_action_date(trades, ticker) -> str:
+    for tr in reversed(trades or []):
+        if tr.get("ticker") == ticker:
+            return fmt_dt(tr.get("date"))
+    return "–"
+
+
 pf = load(STATE / "portfolio_state.json")
 status = load(STATE / "last_run_status.json")
 log = load(STATE / "hybrid_log.json")
 gate = load(ROOT / "signals" / "ki_gate.json")
 cfg = load(ROOT / "config.json") or {}
 rules_md = ""
-rules_path = ROOT / "RULES.md"
-if rules_path.exists():
-    rules_md = rules_path.read_text(encoding="utf-8")
+if (ROOT / "RULES.md").exists():
+    rules_md = (ROOT / "RULES.md").read_text(encoding="utf-8")
 
 if status:
     st.info(status.get("headline") or status.get("last_run") or "")
 else:
     st.warning("Noch kein Hybrid-Lauf – Actions **Run Hybrid Daily** starten.")
 
-# --- Kennzahlen ---
 if pf:
     cash = float(pf.get("cash") or 0)
     ext = float(pf.get("external_profit") or 0)
     start = float(pf.get("starting_cash") or 10_000)
     positions = pf.get("positions") or {}
+    trades = pf.get("trades") or []
     equity = cash + sum(
         float(p.get("shares", 0)) * float(p.get("current_price") or p.get("avg_cost") or 0)
         for p in positions.values()
@@ -80,9 +100,13 @@ if pf:
             avg = float(p["avg_cost"])
             px = float(p.get("current_price") or avg)
             pct = (px / avg - 1) * 100 if avg else 0
+            opened = fmt_dt(p.get("opened_at")) if p.get("opened_at") else first_buy_date(trades, t)
+            last_a = fmt_dt(p.get("last_action_at")) if p.get("last_action_at") else last_action_date(trades, t)
             rows.append(
                 {
                     "Ticker": t,
+                    "Kaufdatum": opened,
+                    "Letzte Aktion": last_a,
                     "Stück": sh,
                     "Einstand": round(avg, 2),
                     "Kurs": round(px, 2),
@@ -99,7 +123,6 @@ if pf:
 else:
     st.write("Kein portfolio_state.json – noch kein Lauf.")
 
-# --- KI-Gate ---
 st.divider()
 st.subheader("KI-Gate (aktuell)")
 if gate:
@@ -109,14 +132,13 @@ if gate:
 else:
     st.write("Keine ki_gate.json")
 
-# --- Change-Katalog ---
 st.divider()
 st.subheader("Change-Katalog")
-st.caption("Hybrid-Läufe und ausgeführte Trades")
+st.caption("Hybrid-Läufe und ausgeführte Trades – mit Datum")
 
 if log and log.get("runs"):
     for run in reversed(log["runs"][-30:]):
-        date = str(run.get("date") or "")[:19].replace("T", " ")
+        date = fmt_dt(run.get("date"))
         title = f"Hybrid: {date} – Vermögen {run.get('wealth', '–')} €"
         with st.expander(title, expanded=False):
             st.write(run.get("source") or "")
@@ -136,7 +158,7 @@ if pf and pf.get("trades"):
     for t in pf["trades"]:
         trade_rows.append(
             {
-                "Datum": str(t.get("date") or "")[:19].replace("T", " "),
+                "Datum": fmt_dt(t.get("date")),
                 "Aktion": str(t.get("action") or "").upper(),
                 "Ticker": t.get("ticker"),
                 "Stück": t.get("shares"),
@@ -146,51 +168,24 @@ if pf and pf.get("trades"):
         )
     st.dataframe(pd.DataFrame(trade_rows), use_container_width=True, hide_index=True)
 
-# --- Regelwerk ---
 st.divider()
 st.subheader("Regelwerk")
-
-with st.expander("Hybrid-Regeln (Variante A) – ausführlich", expanded=True):
+with st.expander("Hybrid-Regeln (Variante A)", expanded=True):
     st.markdown(
         """
 ### Rollen
-1. **Algo** (`stock-algo-paper-trading`) liefert Signale: kaufen, nachkaufen, reinvestieren, teilverkauf, halten.  
-2. **KI-Gate** darf nur:
-   - **block** – Trade findet nicht statt  
-   - **half** – Stückzahl wird halbiert  
-3. Ohne Gate-Eintrag wird der **Algo-Vorschlag** (bei leerem Depot: Startkauf) ausgeführt.
+1. **Algo** liefert Signale.  
+2. **KI-Gate** darf nur **block** oder **half**.  
+3. Ohne Gate: Algo-Vorschlag / Startkauf ausführen.
 
-### Startkauf
-- Wenn das Hybrid-Depot **leer** ist: score-gewichteter Kauf aus dem Universum (wie Algo-Start).  
-- KI-Gate kann einzelne Ticker blocken oder halbieren.
-
-### Nach dem Start
-- Nur Signale aus dem letzten Algo-`decisions_log`  
-- **Kein automatischer Verkauf im Minus**  
-- Teilverkauf nur bei Algo-`teilverkauf` und Position im Plus  
-- Max. Positionsanteil laut Config  
-- Gebühr **1 €** pro Trade (Paper)
-
-### Dateien
-| Datei | Bedeutung |
-|-------|-----------|
-| `signals/ki_gate.json` | blocks / half von der KI-Automation |
-| `signals/algo_signals.json` | letzter gelesener Algo-Stand |
-| `state/portfolio_state.json` | Hybrid-Depot |
-| `state/hybrid_log.json` | Change-Katalog der Läufe |
+### Daten
+- Jede Position speichert **Kaufdatum** (`opened_at`) und **letzte Aktion**.  
+- Jeder Trade hat ein **Datum** der Ausführung.
 """
     )
-
 with st.expander("Config (aktuell)", expanded=False):
-    if cfg:
-        st.json(cfg)
-    else:
-        st.write("Keine config.json")
+    st.json(cfg) if cfg else st.write("–")
+with st.expander("RULES.md", expanded=False):
+    st.markdown(rules_md) if rules_md else st.write("–")
 
-with st.expander("RULES.md (Repo)", expanded=False):
-    if rules_md:
-        st.markdown(rules_md)
-    else:
-        st.write("RULES.md fehlt")
-
-st.caption("Paper-Trading · Keine Anlageberatung · Repo: KI-king222/stock-hybrid-paper-trading")
+st.caption("Paper-Trading · Keine Anlageberatung")

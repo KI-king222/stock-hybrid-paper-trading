@@ -15,6 +15,8 @@ class Position:
     avg_cost: float
     current_price: float = 0.0
     dip_buy_count: int = 0
+    opened_at: str = ""  # ISO – erster Kauf
+    last_action_at: str = ""  # ISO – letzter Kauf/Verkauf an dieser Pos.
 
     @property
     def market_value(self) -> float:
@@ -34,6 +36,8 @@ class Position:
             "avg_cost": self.avg_cost,
             "current_price": self.current_price,
             "dip_buy_count": self.dip_buy_count,
+            "opened_at": self.opened_at,
+            "last_action_at": self.last_action_at,
         }
 
 
@@ -72,21 +76,29 @@ class Portfolio:
         if cost > self.cash + 1e-6:
             return False
         self.cash -= cost
+        iso = when.isoformat()
         if ticker in self.positions:
             pos = self.positions[ticker]
             total_sh = pos.shares + shares
             pos.avg_cost = (pos.avg_cost * pos.shares + price * shares) / total_sh
             pos.shares = total_sh
             pos.current_price = price
+            pos.last_action_at = iso
             if is_dip:
                 pos.dip_buy_count += 1
         else:
             self.positions[ticker] = Position(
-                ticker, shares, price, price, 1 if is_dip else 0
+                ticker,
+                shares,
+                price,
+                price,
+                1 if is_dip else 0,
+                opened_at=iso,
+                last_action_at=iso,
             )
         self.trades.append(
             {
-                "date": when.isoformat(),
+                "date": iso,
                 "ticker": ticker,
                 "action": "buy",
                 "shares": shares,
@@ -115,14 +127,16 @@ class Portfolio:
         if pnl > 0:
             self.external_profit += pnl
         self.cash += proceeds
+        iso = when.isoformat()
         pos.shares -= shares
+        pos.last_action_at = iso
         if pos.shares <= 1e-9:
             del self.positions[ticker]
         else:
             pos.current_price = price
         self.trades.append(
             {
-                "date": when.isoformat(),
+                "date": iso,
                 "ticker": ticker,
                 "action": "sell",
                 "shares": shares,
@@ -161,11 +175,25 @@ class Portfolio:
             trades=list(d.get("trades") or []),
         )
         for t, p in (d.get("positions") or {}).items():
+            opened = p.get("opened_at") or ""
+            last = p.get("last_action_at") or ""
+            if not opened:
+                for tr in pf.trades:
+                    if tr.get("ticker") == t and tr.get("action") == "buy":
+                        opened = str(tr.get("date") or "")
+                        break
+            if not last:
+                for tr in reversed(pf.trades):
+                    if tr.get("ticker") == t:
+                        last = str(tr.get("date") or "")
+                        break
             pf.positions[t] = Position(
                 ticker=t,
                 shares=float(p["shares"]),
                 avg_cost=float(p["avg_cost"]),
                 current_price=float(p.get("current_price") or p["avg_cost"]),
                 dip_buy_count=int(p.get("dip_buy_count") or 0),
+                opened_at=opened,
+                last_action_at=last,
             )
         return pf
