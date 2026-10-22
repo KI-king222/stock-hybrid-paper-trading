@@ -1,0 +1,43 @@
+{
+  "runs": [
+    {
+      "date": "2026-10-22T10:15:18",
+      "source": "Hybrid A: Algo + KI-Gate",
+      "n_signals": 4,
+      "decisions": [
+        {
+          "ticker": "SAP.DE",
+          "algo_action": "halten",
+          "final": "halten",
+          "gate": "kein KI-Veto",
+          "score": 42.4
+        },
+        {
+          "ticker": "HNR1.DE",
+          "algo_action": "halten",
+          "final": "halten",
+          "gate": "kein KI-Veto",
+          "score": 28.1
+        },
+        {
+          "ticker": "MUV2.DE",
+          "algo_action": "halten",
+          "final": "halten",
+          "gate": "kein KI-Veto",
+          "score": 43.5
+        },
+        {
+          "ticker": "ENR.DE",
+          "algo_action": "halten",
+          "final": "halten",
+          "gate": "kein KI-Veto",
+          "score": 43.0
+        }
+      ],
+      "cash": 10000.0,
+      "equity": 10000.0,
+      "external_profit": 0.0,
+      "wealth": 10000.0
+    }
+  ]
+}
