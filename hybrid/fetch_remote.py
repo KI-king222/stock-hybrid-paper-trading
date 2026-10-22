@@ -1,8 +1,7 @@
 """Signale aus Algo- und KI-Repo (GitHub raw) laden."""
 from __future__ import annotations
 
-import json
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List, Optional, Tuple
 
 import requests
 
@@ -22,43 +21,49 @@ def fetch_json(owner: str, repo: str, path: str, branch: str = "main") -> Option
         return None
 
 
-def load_algo_signals(cfg: dict) -> List[dict]:
-    """Aus decisions_log des Algo-Repos den letzten Lauf extrahieren."""
+def load_algo_last_run(cfg: dict) -> Tuple[List[dict], Dict[str, float]]:
+    """Letzter Algo-Lauf: decisions + scores."""
     owner = cfg["algo_owner"]
     repo = cfg["algo_repo"]
     branch = cfg.get("algo_branch", "main")
     log = fetch_json(owner, repo, "state/decisions_log.json", branch)
     if not log or not log.get("runs"):
-        # Fallback: decisions im Root-ähnlichen Pfad
         log = fetch_json(owner, repo, "decisions_log.json", branch)
     if not log or not log.get("runs"):
-        return []
+        return [], {}
+
     last = log["runs"][-1]
+    scores = {k: float(v) for k, v in (last.get("scores") or {}).items()}
     out = []
+    map_en = {
+        "hold": "halten",
+        "buy": "neukauf",
+        "reinvest": "reinvestition",
+        "dip_buy": "nachkauf",
+        "new_buy": "neukauf",
+        "take_profit": "teilverkauf",
+        "sell": "teilverkauf",
+    }
     for d in last.get("decisions") or []:
         akt = d.get("aktion") or d.get("action") or "halten"
-        # EN → DE
-        map_en = {
-            "hold": "halten",
-            "buy": "neukauf",
-            "reinvest": "reinvestition",
-            "dip_buy": "nachkauf",
-            "new_buy": "neukauf",
-            "take_profit": "teilverkauf",
-            "sell": "teilverkauf",
-        }
-        akt = map_en.get(str(akt), akt)
+        akt = map_en.get(str(akt), str(akt))
+        sh = d.get("stück") if d.get("stück") is not None else d.get("shares")
         out.append(
             {
                 "ticker": d.get("ticker"),
                 "action": akt,
-                "shares": d.get("stück") if d.get("stück") is not None else d.get("shares"),
-                "score": d.get("score"),
+                "shares": sh,
+                "score": d.get("score") if d.get("score") is not None else scores.get(d.get("ticker")),
                 "reason": d.get("grund") or d.get("reason") or "",
                 "source_date": last.get("date"),
             }
         )
-    return out
+    return out, scores
+
+
+def load_algo_signals(cfg: dict) -> List[dict]:
+    signals, _ = load_algo_last_run(cfg)
+    return signals
 
 
 def load_ki_artifacts(cfg: dict) -> Dict[str, Any]:
