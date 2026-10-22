@@ -1,14 +1,9 @@
 {
-  "last_run": "2026-10-22T10:23:48",
-  "headline": "Hybrid A 22.10.2026 10:23 | Vermögen 9,996 € | Cash 1,051 € | Pos 4",
-  "wealth": 9996.0,
+  "last_run": "2026-10-22T11:57:38",
+  "headline": "Hybrid A 22.10.2026 11:57 | Vermögen 10,026 € | Cash 1,051 € | Pos 4",
+  "wealth": 10026.4,
   "cash": 1050.6,
   "n_positions": 4,
   "n_decisions": 4,
-  "actions": [
-    "kauf SAP.DE",
-    "kauf HNR1.DE",
-    "kauf MUV2.DE",
-    "kauf ENR.DE"
-  ]
+  "actions": []
 }
