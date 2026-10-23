@@ -222,6 +222,51 @@
         "MUV2.DE",
         "ENR.DE"
       ]
+    },
+    {
+      "date": "2026-10-23T21:56:08",
+      "source": "Hybrid A: Algo + KI-Gate",
+      "n_signals": 4,
+      "decisions": [
+        {
+          "ticker": "SAP.DE",
+          "algo_action": "halten",
+          "final": "halten",
+          "gate": "halten – Gate nicht anwendbar",
+          "score": 40.3
+        },
+        {
+          "ticker": "HNR1.DE",
+          "algo_action": "halten",
+          "final": "halten",
+          "gate": "halten – Gate nicht anwendbar",
+          "score": 28.1
+        },
+        {
+          "ticker": "MUV2.DE",
+          "algo_action": "halten",
+          "final": "halten",
+          "gate": "halten – Gate nicht anwendbar",
+          "score": 45.5
+        },
+        {
+          "ticker": "ENR.DE",
+          "algo_action": "halten",
+          "final": "halten",
+          "gate": "halten – Gate nicht anwendbar",
+          "score": 29.8
+        }
+      ],
+      "cash": 1050.6,
+      "equity": 9904.6,
+      "external_profit": 0.0,
+      "wealth": 9904.6,
+      "positions": [
+        "SAP.DE",
+        "HNR1.DE",
+        "MUV2.DE",
+        "ENR.DE"
+      ]
     }
   ]
 }
