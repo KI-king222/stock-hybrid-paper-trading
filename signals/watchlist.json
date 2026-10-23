@@ -1,5 +1,38 @@
 {
-  "updated_at": null,
-  "scale": "1 = hoch (nahe Kauf), 2 = mittel, 3 = niedrig",
-  "items": []
+  "updated_at": "2026-10-23T23:19:00",
+  "scale": "1 = hoch (nahe Interesse), 2 = mittel, 3 = niedrig",
+  "items": [
+    {
+      "ticker": "ASML.AS",
+      "title": "ASML Holding",
+      "priority": 2,
+      "status": "active",
+      "reason": "Monopol Lithographie, AI-Chip-Demand stark, aber hohe Bewertung/Volatilität – beobachten für möglichen Einstieg",
+      "added_at": "2026-10-23"
+    },
+    {
+      "ticker": "MU",
+      "title": "Micron Technology",
+      "priority": 2,
+      "status": "active",
+      "reason": "AI-Memory / starke Berichtslage, hohe Bewertung und Volatilität – Qualität beobachten",
+      "added_at": "2026-10-23"
+    },
+    {
+      "ticker": "HPE",
+      "title": "Hewlett Packard Enterprise",
+      "priority": 3,
+      "status": "active",
+      "reason": "AI-Server/Backlog-Thema – noch nicht kaufreif, Valuation prüfen",
+      "added_at": "2026-10-23"
+    },
+    {
+      "ticker": "SAP.DE",
+      "title": "SAP",
+      "priority": 2,
+      "status": "active",
+      "reason": "Bereits im Hybrid-Depot gehalten, Cloud/AI-These intakt – weiter beobachten nach Kursanstieg",
+      "added_at": "2026-10-23"
+    }
+  ]
 }
