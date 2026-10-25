@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-24T23:17:00",
+  "updated_at": "2026-10-25T22:23:00",
   "scale": "1 = hoch (nahe Interesse), 2 = mittel, 3 = niedrig",
   "items": [
     {
@@ -7,7 +7,7 @@
       "title": "ASML Holding",
       "priority": 2,
       "status": "active",
-      "reason": "Monopol Lithographie, AI-Chip-Demand stark, aber hohe Bewertung/Volatilität – beobachten für möglichen Einstieg",
+      "reason": "Monopol Lithographie, AI-Chip-Demand stark (Backlog bis 2030), aber hohe Bewertung/Volatilität – beobachten für möglichen Einstieg",
       "added_at": "2026-10-23"
     },
     {
@@ -19,6 +19,14 @@
       "added_at": "2026-10-23"
     },
     {
+      "ticker": "SAP.DE",
+      "title": "SAP",
+      "priority": 2,
+      "status": "active",
+      "reason": "Bereits im Hybrid-Depot gehalten, Cloud/AI-These intakt – weiter beobachten nach Kursanstieg",
+      "added_at": "2026-10-23"
+    },
+    {
       "ticker": "HPE",
       "title": "Hewlett Packard Enterprise",
       "priority": 3,
@@ -27,12 +35,12 @@
       "added_at": "2026-10-23"
     },
     {
-      "ticker": "SAP.DE",
-      "title": "SAP",
-      "priority": 2,
+      "ticker": "BE",
+      "title": "Bloom Energy",
+      "priority": 3,
       "status": "active",
-      "reason": "Bereits im Hybrid-Depot gehalten, Cloud/AI-These intakt – weiter beobachten nach Kursanstieg",
-      "added_at": "2026-10-23"
+      "reason": "AI-Power / Energie-Infrastruktur – hohe Volatilität, beobachten (aus KI-Kontext)",
+      "added_at": "2026-10-25"
     }
   ]
 }
