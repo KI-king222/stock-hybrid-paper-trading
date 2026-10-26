@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-25T22:23:00",
+  "updated_at": "2026-10-26T23:18:00",
   "scale": "1 = hoch (nahe Interesse), 2 = mittel, 3 = niedrig",
   "items": [
     {
@@ -7,7 +7,7 @@
       "title": "ASML Holding",
       "priority": 2,
       "status": "active",
-      "reason": "Monopol Lithographie, AI-Chip-Demand stark (Backlog bis 2030), aber hohe Bewertung/Volatilität – beobachten für möglichen Einstieg",
+      "reason": "Monopol Lithographie, AI-Chip-Demand stark (Backlog bis 2030), hohe Bewertung/Volatilität – weiter beobachten für möglichen Einstieg",
       "added_at": "2026-10-23"
     },
     {

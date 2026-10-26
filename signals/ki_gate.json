@@ -1,7 +1,7 @@
 {
-  "updated_at": "2026-10-25T22:23:00",
+  "updated_at": "2026-10-26T23:18:00",
   "source": "Grok Automation",
   "blocks": [],
   "half": [],
-  "notes": "Algo-Signale (letzter Run 23.10.2026 21:23) alle halten für SAP.DE (Score 40.3, P&L +5.5%), HNR1.DE (28.1, +1.5%), MUV2.DE (45.5, +1.6%), ENR.DE (29.8, -8.9%). Keine Trade-Aktionen, daher weder block noch half. Algo führt. Hybrid-Portfolio unverändert (ENR unter Einstand ~-7.6%, These aus KI-Kontext intakt: Backlog 162 Mrd., AI-Power/Gas Demand stark, Nov-Jahreszahlen relevant). Kein Hybrid-Trade."
+  "notes": "Algo-Signale (letzter Run 26.10.2026 21:26) alle halten für SAP.DE (Score 54.3, P&L +4.4%), HNR1.DE (26.1, +1.7%), MUV2.DE (43.5, +1.7%), ENR.DE (29.8, -5.5%). Keine Trade-Aktionen (nur halten), daher weder block noch half. Algo führt. Hybrid-Portfolio: ENR unter Einstand (~-4.1% zu avg 128.46 / current 123.16), These aus KI-Kontext intakt (Backlog 162 Mrd., AI-Power/Gas Demand stark). KI-Depot ENR tiefer im Minus mit max Nachkäufen erreicht. Kein Hybrid-Trade."
 }
