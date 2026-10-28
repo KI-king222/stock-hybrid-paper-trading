@@ -8,7 +8,7 @@
       "ticker": "SAP.DE",
       "shares": 12.0,
       "avg_cost": 206.75,
-      "current_price": 213.14999389648438,
+      "current_price": 211.1999969482422,
       "dip_buy_count": 0,
       "opened_at": "2026-10-22T10:23:48.994411",
       "last_action_at": "2026-10-22T10:23:48.994411"
@@ -17,7 +17,7 @@
       "ticker": "HNR1.DE",
       "shares": 6.0,
       "avg_cost": 280.0,
-      "current_price": 280.0,
+      "current_price": 281.6000061035156,
       "dip_buy_count": 0,
       "opened_at": "2026-10-22T10:23:48.994411",
       "last_action_at": "2026-10-22T10:23:48.994411"
@@ -26,7 +26,7 @@
       "ticker": "MUV2.DE",
       "shares": 4.0,
       "avg_cost": 553.7999877929688,
-      "current_price": 553.7999877929688,
+      "current_price": 554.7999877929688,
       "dip_buy_count": 0,
       "opened_at": "2026-10-22T10:23:48.994411",
       "last_action_at": "2026-10-22T10:23:48.994411"
@@ -35,7 +35,7 @@
       "ticker": "ENR.DE",
       "shares": 20.0,
       "avg_cost": 128.4600067138672,
-      "current_price": 128.5800018310547,
+      "current_price": 133.25999450683594,
       "dip_buy_count": 0,
       "opened_at": "2026-10-22T10:23:48.994411",
       "last_action_at": "2026-10-22T10:23:48.994411"
