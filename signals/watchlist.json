@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-29T23:16:00",
+  "updated_at": "2026-10-30T23:17:00",
   "scale": "1 = hoch (nahe Interesse), 2 = mittel, 3 = niedrig",
   "items": [
     {
@@ -7,7 +7,7 @@
       "title": "ASML Holding",
       "priority": 2,
       "status": "active",
-      "reason": "Monopol Lithographie, AI-Chip-Demand stark (Backlog bis 2030), hohe Bewertung/Volatilität – weiter beobachten für möglichen Einstieg",
+      "reason": "Monopol Lithographie, AI-Chip-Demand stark (Backlog bis 2030), hohe Bewertung/Volatilit\u00e4t \u2013 weiter beobachten f\u00fcr m\u00f6glichen Einstieg",
       "added_at": "2026-10-23"
     },
     {
@@ -15,7 +15,7 @@
       "title": "Micron Technology",
       "priority": 2,
       "status": "active",
-      "reason": "AI-Memory / starke Berichtslage, hohe Bewertung und Volatilität – Qualität beobachten",
+      "reason": "AI-Memory / starke Berichtslage, hohe Bewertung und Volatilit\u00e4t \u2013 Qualit\u00e4t beobachten",
       "added_at": "2026-10-23"
     },
     {
@@ -23,7 +23,7 @@
       "title": "SAP",
       "priority": 2,
       "status": "active",
-      "reason": "Bereits im Hybrid-Depot gehalten (P&L positiv), Cloud/AI-These intakt – weiter beobachten",
+      "reason": "Bereits im Hybrid-Depot gehalten (P&L positiv ~+2%), Cloud/AI-These intakt \u2013 weiter beobachten",
       "added_at": "2026-10-23"
     },
     {
@@ -31,7 +31,7 @@
       "title": "Hewlett Packard Enterprise",
       "priority": 3,
       "status": "active",
-      "reason": "AI-Server/Backlog-Thema – noch nicht kaufreif, Valuation prüfen",
+      "reason": "AI-Server/Backlog-Thema \u2013 noch nicht kaufreif, Valuation pr\u00fcfen",
       "added_at": "2026-10-23"
     },
     {
@@ -39,7 +39,7 @@
       "title": "Bloom Energy",
       "priority": 3,
       "status": "active",
-      "reason": "AI-Power / Energie-Infrastruktur – hohe Volatilität, beobachten (aus KI-Kontext)",
+      "reason": "AI-Power / Energie-Infrastruktur \u2013 hohe Volatilit\u00e4t, beobachten (aus KI-Kontext)",
       "added_at": "2026-10-25"
     }
   ]
