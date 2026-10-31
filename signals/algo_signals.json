@@ -1,43 +1,43 @@
 {
-  "date": "2026-10-30T01:12:34",
+  "date": "2026-10-31T00:55:20",
   "signals": [
     {
       "ticker": "SAP.DE",
       "action": "halten",
       "shares": null,
       "score": 48.3,
-      "reason": "Halten · P&L +3.9% · Score 48",
-      "source_date": "2026-10-30T00:38:21"
+      "reason": "Halten · P&L +2.8% · Score 48",
+      "source_date": "2026-10-31T00:26:27"
     },
     {
       "ticker": "HNR1.DE",
       "action": "halten",
       "shares": null,
       "score": 28.1,
-      "reason": "Halten · P&L +2.0% · Score 28",
-      "source_date": "2026-10-30T00:38:21"
+      "reason": "Halten · P&L +3.0% · Score 28",
+      "source_date": "2026-10-31T00:26:27"
     },
     {
       "ticker": "MUV2.DE",
       "action": "halten",
       "shares": null,
-      "score": 43.5,
-      "reason": "Halten · P&L +1.2% · Score 44",
-      "source_date": "2026-10-30T00:38:21"
+      "score": 41.5,
+      "reason": "Halten · P&L +1.5% · Score 42",
+      "source_date": "2026-10-31T00:26:27"
     },
     {
       "ticker": "ENR.DE",
       "action": "halten",
       "shares": null,
       "score": 51.0,
-      "reason": "Halten · P&L +2.3% · Score 51",
-      "source_date": "2026-10-30T00:38:21"
+      "reason": "Halten · P&L +4.6% · Score 51",
+      "source_date": "2026-10-31T00:26:27"
     }
   ],
   "scores": {
-    "ENR.DE": 51.0,
-    "MUV2.DE": 43.5,
+    "MUV2.DE": 41.5,
+    "HNR1.DE": 28.1,
     "SAP.DE": 48.3,
-    "HNR1.DE": 28.1
+    "ENR.DE": 51.0
   }
 }
