@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-31T23:16:00",
+  "updated_at": "2026-11-01T23:17:00",
   "scale": "1 = hoch (nahe Interesse), 2 = mittel, 3 = niedrig",
   "items": [
     {
@@ -23,7 +23,7 @@
       "title": "SAP",
       "priority": 2,
       "status": "active",
-      "reason": "Bereits im Hybrid-Depot gehalten (P&L positiv ~+1%), Cloud/AI-These intakt \u2013 weiter beobachten",
+      "reason": "Bereits im Hybrid-Depot gehalten (P&L positiv ~+2%), Cloud/AI-These intakt \u2013 weiter beobachten",
       "added_at": "2026-10-23"
     },
     {
