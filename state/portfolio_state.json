@@ -1,8 +1,8 @@
 {
   "starting_cash": 10000.0,
-  "cash": 1050.5999145507812,
+  "cash": 1919.5999145507812,
   "fee_per_trade": 1.0,
-  "external_profit": 0.0,
+  "external_profit": 29.0,
   "positions": {
     "SAP.DE": {
       "ticker": "SAP.DE",
@@ -15,12 +15,12 @@
     },
     "HNR1.DE": {
       "ticker": "HNR1.DE",
-      "shares": 6.0,
+      "shares": 3.0,
       "avg_cost": 280.0,
       "current_price": 290.0,
       "dip_buy_count": 0,
       "opened_at": "2026-10-22T10:23:48.994411",
-      "last_action_at": "2026-10-22T10:23:48.994411"
+      "last_action_at": "2026-11-03T02:59:06.449564"
     },
     "MUV2.DE": {
       "ticker": "MUV2.DE",
@@ -81,6 +81,16 @@
       "fee": 1.0,
       "reason": "Hybrid Startkauf Score 43 | kein KI-Veto",
       "locked_profit": 0.0
+    },
+    {
+      "date": "2026-11-03T02:59:06.449564",
+      "ticker": "HNR1.DE",
+      "action": "sell",
+      "shares": 3.0,
+      "price": 290.0,
+      "fee": 1.0,
+      "reason": "Hybrid/Algo: Monats-Mitnahme: +5.1% | kein KI-Veto",
+      "locked_profit": 29.0
     }
   ]
 }
