@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-11-03T23:18:00",
+  "updated_at": "2026-11-04T23:18:00",
   "scale": "1 = hoch (nahe Interesse), 2 = mittel, 3 = niedrig",
   "items": [
     {
@@ -23,7 +23,7 @@
       "title": "SAP",
       "priority": 2,
       "status": "active",
-      "reason": "Bereits im Hybrid-Depot gehalten (P&L positiv ~+3.9%), Cloud/AI-These intakt – weiter beobachten",
+      "reason": "Bereits im Hybrid-Depot gehalten (P&L positiv ~+1.8% bis +3.6%), Cloud/AI-These intakt – weiter beobachten",
       "added_at": "2026-10-23"
     },
     {
@@ -47,7 +47,7 @@
       "title": "Hannover Rück",
       "priority": 2,
       "status": "active",
-      "reason": "Teilverkauf im Hybrid erfolgt (Monats-Mitnahme), restliche Position positiv, Guidance/Solvency stark – weiter beobachten",
+      "reason": "Teilverkauf im Hybrid erfolgt (Monats-Mitnahme), restliche Position positiv ~+4%, Guidance/Solvency stark – weiter beobachten",
       "added_at": "2026-11-03"
     }
   ]
