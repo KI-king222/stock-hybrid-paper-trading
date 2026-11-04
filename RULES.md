@@ -15,6 +15,13 @@
 - Max. Positionsanteil am Equity laut `config.json`.
 - Gebühr 1 € pro Trade (Paper).
 
+## Cash-Druck-Regel (seit 04.11.2026)
+
+- **Maximale Cash-Quote:** 20 % des Equity.
+- **Absolute Obergrenze:** 2.500 € investierbares Cash.
+- **Mindestreserve:** 800 € dürfen immer als Cash gehalten werden.
+- Bei Überschreitung: Algo soll reinvestieren / neue Käufe vorschlagen; KI-Gate darf blocken, muss aber begründen. Endloses Cash-Halten ist nicht mehr zulässig.
+
 ## Dateien
 
 - `signals/algo_signals.json` – vom Orchestrator aus Algo-Repo gebaut  
