@@ -10,8 +10,8 @@
       "avg_cost": 206.75,
       "current_price": 210.5,
       "dip_buy_count": 0,
-      "opened_at": "2026-10-22T10:23:48.994411",
-      "last_action_at": "2026-10-22T10:23:48.994411"
+      "opened_at": "2026-10-22T09:20:00",
+      "last_action_at": "2026-10-22T09:20:00"
     },
     "HNR1.DE": {
       "ticker": "HNR1.DE",
@@ -19,8 +19,8 @@
       "avg_cost": 280.0,
       "current_price": 291.20001220703125,
       "dip_buy_count": 0,
-      "opened_at": "2026-10-22T10:23:48.994411",
-      "last_action_at": "2026-11-03T02:59:06.449564"
+      "opened_at": "2026-10-22T09:20:00",
+      "last_action_at": "2026-11-03T09:35:00"
     },
     "MUV2.DE": {
       "ticker": "MUV2.DE",
@@ -28,8 +28,8 @@
       "avg_cost": 553.7999877929688,
       "current_price": 568.0,
       "dip_buy_count": 0,
-      "opened_at": "2026-10-22T10:23:48.994411",
-      "last_action_at": "2026-10-22T10:23:48.994411"
+      "opened_at": "2026-10-22T09:20:00",
+      "last_action_at": "2026-10-22T09:20:00"
     },
     "ENR.DE": {
       "ticker": "ENR.DE",
@@ -37,13 +37,13 @@
       "avg_cost": 128.4600067138672,
       "current_price": 130.0,
       "dip_buy_count": 0,
-      "opened_at": "2026-10-22T10:23:48.994411",
-      "last_action_at": "2026-10-22T10:23:48.994411"
+      "opened_at": "2026-10-22T09:20:00",
+      "last_action_at": "2026-10-22T09:20:00"
     }
   },
   "trades": [
     {
-      "date": "2026-10-22T10:23:48.994411",
+      "date": "2026-10-22T09:20:00",
       "ticker": "SAP.DE",
       "action": "buy",
       "shares": 12.0,
@@ -53,7 +53,7 @@
       "locked_profit": 0.0
     },
     {
-      "date": "2026-10-22T10:23:48.994411",
+      "date": "2026-10-22T09:20:00",
       "ticker": "HNR1.DE",
       "action": "buy",
       "shares": 6.0,
@@ -63,7 +63,7 @@
       "locked_profit": 0.0
     },
     {
-      "date": "2026-10-22T10:23:48.994411",
+      "date": "2026-10-22T09:20:00",
       "ticker": "MUV2.DE",
       "action": "buy",
       "shares": 4.0,
@@ -73,7 +73,7 @@
       "locked_profit": 0.0
     },
     {
-      "date": "2026-10-22T10:23:48.994411",
+      "date": "2026-10-22T09:20:00",
       "ticker": "ENR.DE",
       "action": "buy",
       "shares": 20.0,
@@ -83,7 +83,7 @@
       "locked_profit": 0.0
     },
     {
-      "date": "2026-11-03T02:59:06.449564",
+      "date": "2026-11-03T09:35:00",
       "ticker": "HNR1.DE",
       "action": "sell",
       "shares": 3.0,
