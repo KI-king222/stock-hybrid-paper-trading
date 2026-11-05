@@ -15,12 +15,15 @@
 - Max. Positionsanteil am Equity laut `config.json`.
 - Gebühr 1 € pro Trade (Paper).
 
-## Cash-Druck-Regel (seit 04.11.2026)
+## Aggressive Cash-Regel (seit 05.11.2026)
 
-- **Maximale Cash-Quote:** 20 % des Equity.
-- **Absolute Obergrenze:** 2.500 € investierbares Cash.
-- **Mindestreserve:** 800 € dürfen immer als Cash gehalten werden.
-- Bei Überschreitung: Algo soll reinvestieren / neue Käufe vorschlagen; KI-Gate darf blocken, muss aber begründen. Endloses Cash-Halten ist nicht mehr zulässig.
+- **Maximal erlaubtes Cash:** ca. 600–800 € (nur kleiner Puffer).
+- Alles darüber ist unproduktiv und muss abgebaut werden.
+- **Nach jedem Verkauf** (oder sobald Cash deutlich über dem Puffer liegt): sofort Dip-/Tief-Suche.
+  - Zuerst bestehende Positionen mit Rücksetzer + intakter These nachkaufen.
+  - Sonst neue Qualität im Tief mit tragfähiger These.
+- Finanzbericht-/These-Check bleibt Pflicht – kein blindes Kaufen.
+- „Geld muss arbeiten“ – langes Cash-Halten ist nicht mehr erlaubt.
 
 ## Dateien
 
