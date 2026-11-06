@@ -16,11 +16,8 @@
   "ki_owner": "KI-king222",
   "ki_repo": "stock-paper-trading",
   "ki_branch": "main",
-  "universe": [
-    "SAP.DE", "SIE.DE", "ALV.DE", "MUV2.DE", "HNR1.DE", "DTE.DE",
-    "BAS.DE", "BMW.DE", "VOW3.DE", "DB1.DE", "ENR.DE", "IFX.DE",
-    "ADS.DE", "DHL.DE", "RWE.DE", "MBG.DE"
-  ],
+  "universe": [],
+  "universe_open": true,
   "allow_algo_sells": true,
-  "notes": "06.11.2026: Breites Universe. Kauf nur These+Tief. TP +6% full."
+  "notes": "06.11.2026: Kein festes Universe. Algo/KI wählen frei passende Titel (These+Tief). TP +6% full."
 }
