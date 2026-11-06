@@ -6,10 +6,10 @@
   "partial_tp_fraction": 1.0,
   "max_position_pct_of_equity": 25.0,
   "max_cash_pct_of_equity": 10.0,
-  "max_cash_absolute": 800.0,
+  "max_cash_absolute": 700.0,
   "min_cash_reserve": 500.0,
   "reinvest_only_on_dip": true,
-  "min_dip_pct_for_reinvest": -3.0,
+  "min_dip_pct_for_reinvest": -2.0,
   "algo_owner": "KI-king222",
   "algo_repo": "stock-algo-paper-trading",
   "algo_branch": "main",
@@ -19,5 +19,5 @@
   "universe": [],
   "universe_open": true,
   "allow_algo_sells": true,
-  "notes": "06.11.2026: Kein festes Universe. Algo/KI wählen frei passende Titel (These+Tief). TP +6% full."
+  "notes": "06.11.2026 Optimierung: TP6 full, Dip-entry -2%, Cash~700, Universe offen"
 }
