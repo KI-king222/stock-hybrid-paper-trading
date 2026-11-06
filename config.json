@@ -3,9 +3,11 @@
   "starting_cash": 10000.0,
   "fee_per_trade": 1.0,
   "max_position_pct_of_equity": 35.0,
-  "max_cash_pct_of_equity": 8.0,
-  "max_cash_absolute": 700.0,
+  "max_cash_pct_of_equity": 10.0,
+  "max_cash_absolute": 800.0,
   "min_cash_reserve": 500.0,
+  "reinvest_only_on_dip": true,
+  "min_dip_pct_for_reinvest": -3.0,
   "algo_owner": "KI-king222",
   "algo_repo": "stock-algo-paper-trading",
   "algo_branch": "main",
@@ -14,5 +16,5 @@
   "ki_branch": "main",
   "universe": ["SAP.DE", "HNR1.DE", "MUV2.DE", "ENR.DE"],
   "allow_algo_sells": true,
-  "notes": "Variante A + Aggressive Cash 05.11.2026: max ~700€, nach Verkauf sofort Dip-Suche"
+  "notes": "06.11.2026: Nur kaufen bei These intakt UND spürbarem Dip – kein dummer Kauf am Hoch"
 }
