@@ -1,41 +1,41 @@
 {
   "starting_cash": 10000.0,
-  "cash": 1919.5999145507812,
+  "cash": 2884.2999114990234,
   "fee_per_trade": 1.0,
-  "external_profit": 29.0,
+  "external_profit": 95.20001220703125,
   "positions": {
     "SAP.DE": {
       "ticker": "SAP.DE",
-      "shares": 12.0,
-      "avg_cost": 206.75,
-      "current_price": 206.64999389648438,
+      "shares": 13.0,
+      "avg_cost": 207.33076946551984,
+      "current_price": 214.3000030517578,
       "dip_buy_count": 0,
       "opened_at": "2026-10-22T09:20:00",
-      "last_action_at": "2026-10-22T09:20:00"
+      "last_action_at": "2026-11-06T01:42:10.034306"
     },
     "HNR1.DE": {
       "ticker": "HNR1.DE",
-      "shares": 3.0,
+      "shares": 1.0,
       "avg_cost": 280.0,
-      "current_price": 291.6000061035156,
+      "current_price": 298.79998779296875,
       "dip_buy_count": 0,
       "opened_at": "2026-10-22T09:20:00",
-      "last_action_at": "2026-11-03T09:35:00"
+      "last_action_at": "2026-11-06T01:42:10.034306"
     },
     "MUV2.DE": {
       "ticker": "MUV2.DE",
-      "shares": 4.0,
+      "shares": 3.0,
       "avg_cost": 553.7999877929688,
-      "current_price": 570.2000122070312,
+      "current_price": 584.4000244140625,
       "dip_buy_count": 0,
       "opened_at": "2026-10-22T09:20:00",
-      "last_action_at": "2026-10-22T09:20:00"
+      "last_action_at": "2026-11-06T01:42:10.034306"
     },
     "ENR.DE": {
       "ticker": "ENR.DE",
       "shares": 20.0,
       "avg_cost": 128.4600067138672,
-      "current_price": 129.77999877929688,
+      "current_price": 119.45999908447266,
       "dip_buy_count": 0,
       "opened_at": "2026-10-22T09:20:00",
       "last_action_at": "2026-10-22T09:20:00"
@@ -91,6 +91,36 @@
       "fee": 1.0,
       "reason": "Hybrid/Algo: Monats-Mitnahme: +5.1% | kein KI-Veto",
       "locked_profit": 29.0
+    },
+    {
+      "date": "2026-11-06T01:42:10.034306",
+      "ticker": "HNR1.DE",
+      "action": "sell",
+      "shares": 2.0,
+      "price": 298.79998779296875,
+      "fee": 1.0,
+      "reason": "Hybrid/Algo: Teilverkauf: +8.3% ≥ +6.0% → ca. 35% | kein KI-Veto",
+      "locked_profit": 36.6
+    },
+    {
+      "date": "2026-11-06T01:42:10.034306",
+      "ticker": "MUV2.DE",
+      "action": "sell",
+      "shares": 1.0,
+      "price": 584.4000244140625,
+      "fee": 1.0,
+      "reason": "Hybrid/Algo: Teilverkauf: +6.6% ≥ +6.0% → ca. 35% | kein KI-Veto",
+      "locked_profit": 29.6
+    },
+    {
+      "date": "2026-11-06T01:42:10.034306",
+      "ticker": "SAP.DE",
+      "action": "buy",
+      "shares": 1.0,
+      "price": 214.3000030517578,
+      "fee": 1.0,
+      "reason": "Hybrid/Algo: Reinvestition in SAP.DE (Score 50) | kein KI-Veto",
+      "locked_profit": 0.0
     }
   ]
 }
