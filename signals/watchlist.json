@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-11-05T23:19:00",
+  "updated_at": "2026-11-06T23:20:00",
   "scale": "1 = hoch (nahe Interesse), 2 = mittel, 3 = niedrig",
   "items": [
     {
@@ -15,7 +15,7 @@
       "title": "Micron Technology",
       "priority": 2,
       "status": "active",
-      "reason": "AI-Memory / starke Berichtslage, hohe Bewertung und Volatilität – Qualität beobachten",
+      "reason": "AI-Memory / starke Berichtslage, extreme Volatilität (Drop am 05.11.) – Qualität beobachten, nicht kaufreif",
       "added_at": "2026-10-23"
     },
     {
@@ -23,7 +23,7 @@
       "title": "SAP",
       "priority": 2,
       "status": "active",
-      "reason": "Bereits im Hybrid-Depot gehalten (P&L ~-0% bis +1.7%), Cloud/AI-These intakt – weiter beobachten",
+      "reason": "Im Hybrid-Depot gehalten (P&L ~+3.4% nach Reinvest), Cloud/AI-These intakt, Score 50 – weiter beobachten",
       "added_at": "2026-10-23"
     },
     {
@@ -39,7 +39,7 @@
       "title": "Bloom Energy",
       "priority": 3,
       "status": "active",
-      "reason": "AI-Power / Energie-Infrastruktur – hohe Volatilität, beobachten (aus KI-Kontext)",
+      "reason": "AI-Power / Energie-Infrastruktur – hohe Volatilität, beobachten",
       "added_at": "2026-10-25"
     },
     {
@@ -47,8 +47,24 @@
       "title": "Hannover Rück",
       "priority": 2,
       "status": "active",
-      "reason": "Teilverkauf im Hybrid erfolgt (Monats-Mitnahme), restliche Position positiv ~+4%, Guidance/Solvency stark – weiter beobachten",
+      "reason": "Teilverkäufe erfolgt (Monats-Mitnahme + weiterer), restliche Position positiv ~+6.7%, Guidance/Solvency stark – weiter beobachten",
       "added_at": "2026-11-03"
+    },
+    {
+      "ticker": "MUV2.DE",
+      "title": "Munich Re",
+      "priority": 2,
+      "status": "active",
+      "reason": "Im Hybrid-Depot gehalten (nach Teilverkauf P&L ~+5.5%), Score 49.5, Dividendenqualität – weiter beobachten",
+      "added_at": "2026-11-06"
+    },
+    {
+      "ticker": "ENR.DE",
+      "title": "Siemens Energy",
+      "priority": 2,
+      "status": "active",
+      "reason": "Im Hybrid-Depot gehalten (P&L ~-7%), These intakt (Backlog/Gas-Demand/Guidance), Algo hält – beobachten für möglichen Nachkauf bei tieferem Dip",
+      "added_at": "2026-11-06"
     }
   ]
 }
