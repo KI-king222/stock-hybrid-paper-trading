@@ -2,28 +2,21 @@
 
 ## Rollen
 
-1. **Algo** liefert Kandidaten: `neukauf`, `nachkauf`, `reinvestition`, `teilverkauf`, `halten`.
-2. **KI-Gate**:
-   - `block`: Trade findet nicht statt
-   - `half`: Stückzahl × 0,5
-3. Ohne Gate-Eintrag: Algo-Vorschlag ausführen (sofern Limits ok).
+1. **Algo** liefert Kandidaten.
+2. **KI-Gate**: block / half / oder voll ausführen.
 
 ## Harte Grenzen
 
+- **Take-Profit ab +8 % → komplette Position verkaufen** (kein Teilverkauf mehr).
 - Kein automatischer Verkauf im Minus.
-- Teilverkauf nur bei Plus und Algo-Signal.
 - Max. Positionsanteil laut config.
 - Gebühr 1 €.
 
-## Cash-Regel (Stand 06.11.2026)
+## Cash-Regel
 
-- Puffer: ca. 500–800 € dürfen liegen.
-- Darüber: aktive Suche ist erwünscht.
-- **Kauf nur erlaubt, wenn beides gilt:**
-  1. These / Finanzbericht intakt oder positiv
-  2. Die Aktie liegt in einem durchschnittlichen Tief / spürbaren Rücksetzer (nicht am Hoch)
-- Wenn keine Aktie beide Bedingungen erfüllt → Cash halten und begründen.
-- Kein Kauf nur deshalb, weil gerade Cash aus einem Verkauf da ist.
+- Puffer 500–800 €.
+- Kauf nur bei: These intakt **und** Aktie im durchschnittlichen Tief.
+- Sonst Cash halten.
 
 ## Dateien
 
