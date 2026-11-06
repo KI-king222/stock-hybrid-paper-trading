@@ -8,8 +8,9 @@
   "max_cash_pct_of_equity": 10.0,
   "max_cash_absolute": 700.0,
   "min_cash_reserve": 500.0,
-  "reinvest_only_on_dip": true,
+  "reinvest_only_on_dip": false,
   "min_dip_pct_for_reinvest": -2.0,
+  "allow_buy_without_dip_if_strong_thesis": true,
   "algo_owner": "KI-king222",
   "algo_repo": "stock-algo-paper-trading",
   "algo_branch": "main",
@@ -19,5 +20,5 @@
   "universe": [],
   "universe_open": true,
   "allow_algo_sells": true,
-  "notes": "06.11.2026 Optimierung: TP6 full, Dip-entry -2%, Cash~700, Universe offen"
+  "notes": "07.11.2026: Kauf Weg A Tief+These positiv ODER Weg B starke These auch ohne Tief. TP6 full."
 }
