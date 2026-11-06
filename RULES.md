@@ -3,31 +3,31 @@
 ## Rollen
 
 1. **Algo** liefert Kandidaten: `neukauf`, `nachkauf`, `reinvestition`, `teilverkauf`, `halten`.
-2. **KI-Gate** (Datei oder abgeleitet aus KI-Repo):
+2. **KI-Gate**:
    - `block`: Trade findet nicht statt
-   - `half`: Stückzahl × 0,5 (aufgerundet mind. 1 wenn ≥2 vorgeschlagen)
-3. Ohne Gate-Eintrag: **Algo-Vorschlag voll ausführen** (bei Kauf, sofern Cash/Limits ok).
+   - `half`: Stückzahl × 0,5
+3. Ohne Gate-Eintrag: Algo-Vorschlag ausführen (sofern Limits ok).
 
-## Harte Grenzen (Code)
+## Harte Grenzen
 
-- Kein automatischer Verkauf im Minus (außer manueller Override später).
-- Teilverkauf nur wenn Algo `teilverkauf` und Position im Plus.
-- Max. Positionsanteil am Equity laut `config.json`.
-- Gebühr 1 € pro Trade (Paper).
+- Kein automatischer Verkauf im Minus.
+- Teilverkauf nur bei Plus und Algo-Signal.
+- Max. Positionsanteil laut config.
+- Gebühr 1 €.
 
-## Aggressive Cash-Regel (seit 05.11.2026)
+## Cash-Regel (Stand 06.11.2026)
 
-- **Maximal erlaubtes Cash:** ca. 600–800 € (nur kleiner Puffer).
-- Alles darüber ist unproduktiv und muss abgebaut werden.
-- **Nach jedem Verkauf** (oder sobald Cash deutlich über dem Puffer liegt): sofort Dip-/Tief-Suche.
-  - Zuerst bestehende Positionen mit Rücksetzer + intakter These nachkaufen.
-  - Sonst neue Qualität im Tief mit tragfähiger These.
-- Finanzbericht-/These-Check bleibt Pflicht – kein blindes Kaufen.
-- „Geld muss arbeiten“ – langes Cash-Halten ist nicht mehr erlaubt.
+- Puffer: ca. 500–800 € dürfen liegen.
+- Darüber: aktive Suche ist erwünscht.
+- **Kauf nur erlaubt, wenn beides gilt:**
+  1. These / Finanzbericht intakt oder positiv
+  2. Die Aktie liegt in einem durchschnittlichen Tief / spürbaren Rücksetzer (nicht am Hoch)
+- Wenn keine Aktie beide Bedingungen erfüllt → Cash halten und begründen.
+- Kein Kauf nur deshalb, weil gerade Cash aus einem Verkauf da ist.
 
 ## Dateien
 
-- `signals/algo_signals.json` – vom Orchestrator aus Algo-Repo gebaut  
-- `signals/ki_gate.json` – optional von der KI-Automation  
-- `state/portfolio_state.json` – Hybrid-Depot  
-- `state/hybrid_log.json` – Entscheidungen mit Gate-Begründung  
+- `signals/algo_signals.json`
+- `signals/ki_gate.json`
+- `state/portfolio_state.json`
+- `state/hybrid_log.json`
