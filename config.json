@@ -2,7 +2,7 @@
   "mode": "hybrid_A",
   "starting_cash": 10000.0,
   "fee_per_trade": 1.0,
-  "take_profit_pct": 8.0,
+  "take_profit_pct": 6.0,
   "partial_tp_fraction": 1.0,
   "max_position_pct_of_equity": 35.0,
   "max_cash_pct_of_equity": 10.0,
@@ -18,5 +18,5 @@
   "ki_branch": "main",
   "universe": ["SAP.DE", "HNR1.DE", "MUV2.DE", "ENR.DE"],
   "allow_algo_sells": true,
-  "notes": "06.11.2026: Full exit ab +8%. Kauf nur bei These + Dip."
+  "notes": "06.11.2026: Full exit ab +6%. Kauf nur bei These + Dip."
 }
