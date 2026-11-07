@@ -1,51 +1,43 @@
 {
-  "date": "2026-11-06T01:42:09",
+  "date": "2026-11-07T01:00:40",
   "signals": [
     {
       "ticker": "HNR1.DE",
       "action": "teilverkauf",
-      "shares": 2.0,
-      "score": 32.1,
-      "reason": "Teilverkauf: +8.3% ≥ +6.0% → ca. 35%",
-      "source_date": "2026-11-06T01:23:16"
+      "shares": 4.0,
+      "score": 33.1,
+      "reason": "Teilverkauf: +11.0% ≥ +6.0% → ca. 100%",
+      "source_date": "2026-11-07T00:38:51"
     },
     {
       "ticker": "MUV2.DE",
       "action": "teilverkauf",
-      "shares": 1.0,
-      "score": 49.5,
-      "reason": "Teilverkauf: +6.6% ≥ +6.0% → ca. 35%",
-      "source_date": "2026-11-06T01:23:16"
+      "shares": 3.0,
+      "score": 47.5,
+      "reason": "Teilverkauf: +8.5% ≥ +6.0% → ca. 100%",
+      "source_date": "2026-11-07T00:38:51"
     },
     {
       "ticker": "SAP.DE",
       "action": "halten",
       "shares": null,
       "score": 50.3,
-      "reason": "Halten · P&L +5.4% · Score 50",
-      "source_date": "2026-11-06T01:23:16"
+      "reason": "Halten · P&L +5.7% · Score 50",
+      "source_date": "2026-11-07T00:38:51"
     },
     {
       "ticker": "ENR.DE",
       "action": "halten",
       "shares": null,
       "score": 29.8,
-      "reason": "Halten · P&L -8.3% · Score 30",
-      "source_date": "2026-11-06T01:23:16"
-    },
-    {
-      "ticker": "SAP.DE",
-      "action": "reinvestition",
-      "shares": 1.0,
-      "score": 50.3,
-      "reason": "Reinvestition in SAP.DE (Score 50)",
-      "source_date": "2026-11-06T01:23:16"
+      "reason": "Dip-Zone, Score/Momentum zu schwach (30/-25)",
+      "source_date": "2026-11-07T00:38:51"
     }
   ],
   "scores": {
-    "HNR1.DE": 32.1,
+    "HNR1.DE": 33.1,
     "ENR.DE": 29.8,
-    "SAP.DE": 50.3,
-    "MUV2.DE": 49.5
+    "MUV2.DE": 47.5,
+    "SAP.DE": 50.3
   }
 }
