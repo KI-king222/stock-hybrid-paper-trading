@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-11-06T23:20:00",
+  "updated_at": "2026-11-07T23:19:00",
   "scale": "1 = hoch (nahe Interesse), 2 = mittel, 3 = niedrig",
   "items": [
     {
@@ -15,7 +15,7 @@
       "title": "Micron Technology",
       "priority": 2,
       "status": "active",
-      "reason": "AI-Memory / starke Berichtslage, extreme Volatilität (Drop am 05.11.) – Qualität beobachten, nicht kaufreif",
+      "reason": "AI-Memory / starke Berichtslage, extreme Volatilität – Qualität beobachten, nicht kaufreif",
       "added_at": "2026-10-23"
     },
     {
@@ -23,7 +23,7 @@
       "title": "SAP",
       "priority": 2,
       "status": "active",
-      "reason": "Im Hybrid-Depot gehalten (P&L ~+3.4% nach Reinvest), Cloud/AI-These intakt, Score 50 – weiter beobachten",
+      "reason": "Im Hybrid-Depot gehalten (13 Stk., P&L ~+4%), Cloud/AI-These intakt, Score 50 – weiter beobachten",
       "added_at": "2026-10-23"
     },
     {
@@ -47,7 +47,7 @@
       "title": "Hannover Rück",
       "priority": 2,
       "status": "active",
-      "reason": "Teilverkäufe erfolgt (Monats-Mitnahme + weiterer), restliche Position positiv ~+6.7%, Guidance/Solvency stark – weiter beobachten",
+      "reason": "Vollverkauft im Hybrid (letzter TP +11%), Guidance/Solvency stark, Qualität intakt – weiter beobachten für möglichen Wiedereinstieg",
       "added_at": "2026-11-03"
     },
     {
@@ -55,7 +55,7 @@
       "title": "Munich Re",
       "priority": 2,
       "status": "active",
-      "reason": "Im Hybrid-Depot gehalten (nach Teilverkauf P&L ~+5.5%), Score 49.5, Dividendenqualität – weiter beobachten",
+      "reason": "Vollverkauft im Hybrid (letzter TP +8.5%), Dividendenqualität und Score solide – weiter beobachten",
       "added_at": "2026-11-06"
     },
     {
@@ -63,7 +63,7 @@
       "title": "Siemens Energy",
       "priority": 2,
       "status": "active",
-      "reason": "Im Hybrid-Depot gehalten (P&L ~-7%), These intakt (Backlog/Gas-Demand/Guidance), Algo hält – beobachten für möglichen Nachkauf bei tieferem Dip",
+      "reason": "Im Hybrid-Depot gehalten (20 Stk., P&L ~-11.4%), These intakt (Backlog/Gas-Demand/Guidance), Algo hält (Score/Momentum schwach) – beobachten für möglichen Nachkauf bei tieferem Dip und besserem Score",
       "added_at": "2026-11-06"
     }
   ]
