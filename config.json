@@ -2,7 +2,7 @@
   "mode": "hybrid_A",
   "starting_cash": 10000.0,
   "fee_per_trade": 1.0,
-  "take_profit_pct": 6.0,
+  "take_profit_pct": 7.0,
   "partial_tp_fraction": 1.0,
   "max_position_pct_of_equity": 25.0,
   "max_cash_pct_of_equity": 10.0,
@@ -11,14 +11,20 @@
   "reinvest_only_on_dip": false,
   "min_dip_pct_for_reinvest": -2.0,
   "allow_buy_without_dip_if_strong_thesis": true,
+  "prefer_international": true,
   "algo_owner": "KI-king222",
   "algo_repo": "stock-algo-paper-trading",
   "algo_branch": "main",
   "ki_owner": "KI-king222",
   "ki_repo": "stock-paper-trading",
   "ki_branch": "main",
-  "universe": [],
+  "universe": [
+    "SAP.DE", "SIE.DE", "ALV.DE", "MUV2.DE", "BAS.DE", "BMW.DE", "IFX.DE",
+    "DHL.DE", "RWE.DE", "AIR.DE", "MBG.DE", "ENR.DE",
+    "ASML.AS", "MC.PA", "OR.PA", "AI.PA",
+    "AAPL", "MSFT", "NVDA", "GOOGL", "AMZN", "META", "JPM", "V"
+  ],
   "universe_open": true,
   "allow_algo_sells": true,
-  "notes": "07.11.2026: Kauf Weg A Tief+These positiv ODER Weg B starke These auch ohne Tief. TP6 full."
+  "notes": "07.11.2026: TP7 full Lohn, DE+EU+US Pool. Algo liefert Score inkl. Finanzbericht."
 }
