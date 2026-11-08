@@ -1,43 +1,73 @@
 {
-  "date": "2026-11-08T09:09:16",
+  "date": "2026-11-08T10:28:33",
   "signals": [
-    {
-      "ticker": "HNR1.DE",
-      "action": "teilverkauf",
-      "shares": 4.0,
-      "score": 33.1,
-      "reason": "Teilverkauf: +11.0% ≥ +6.0% → ca. 100%",
-      "source_date": "2026-11-07T00:38:51"
-    },
-    {
-      "ticker": "MUV2.DE",
-      "action": "teilverkauf",
-      "shares": 3.0,
-      "score": 47.5,
-      "reason": "Teilverkauf: +8.5% ≥ +6.0% → ca. 100%",
-      "source_date": "2026-11-07T00:38:51"
-    },
     {
       "ticker": "SAP.DE",
       "action": "halten",
       "shares": null,
-      "score": 50.3,
-      "reason": "Halten · P&L +5.7% · Score 50",
-      "source_date": "2026-11-07T00:38:51"
+      "score": 46.3,
+      "reason": "Halten · P&L +3.3% · Score 46",
+      "source_date": "2026-11-08T09:09:54"
     },
     {
       "ticker": "ENR.DE",
       "action": "halten",
       "shares": null,
       "score": 29.8,
-      "reason": "Dip-Zone, Score/Momentum zu schwach (30/-25)",
-      "source_date": "2026-11-07T00:38:51"
+      "reason": "Halten · P&L -9.3% · Score 30",
+      "source_date": "2026-11-08T09:09:54"
+    },
+    {
+      "ticker": "ADS.DE",
+      "action": "neukauf",
+      "shares": 9.0,
+      "score": 64.3,
+      "reason": "Neukauf ADS.DE (Score 64, ~40% Cash) · Cash-Druck",
+      "source_date": "2026-11-08T09:09:54"
+    },
+    {
+      "ticker": "MSFT",
+      "action": "neukauf",
+      "shares": 3.0,
+      "score": 49.4,
+      "reason": "Neukauf MSFT (Score 49, ~40% Cash) · Cash-Druck",
+      "source_date": "2026-11-08T09:09:54"
+    },
+    {
+      "ticker": "V",
+      "action": "neukauf",
+      "shares": 4.0,
+      "score": 37.2,
+      "reason": "Neukauf V (Score 37, ~40% Cash) · Cash-Druck",
+      "source_date": "2026-11-08T09:09:54"
     }
   ],
   "scores": {
-    "HNR1.DE": 33.1,
+    "ADS.DE": 64.3,
+    "AMZN": 4.9,
+    "AI.PA": 26.1,
+    "IFX.DE": 24.9,
+    "HNR1.DE": 26.1,
+    "SIE.DE": 34.7,
+    "BAS.DE": 22.8,
+    "GOOGL": -14.1,
+    "META": 13.2,
+    "MSFT": 49.4,
+    "V": 37.2,
+    "OR.PA": 26.3,
+    "SAP.DE": 46.3,
+    "AAPL": 14.0,
+    "DHL.DE": 36.5,
+    "ALV.DE": 32.2,
+    "NVDA": 19.2,
+    "MC.PA": 31.8,
+    "ASML.AS": 17.8,
+    "MUV2.DE": 41.5,
     "ENR.DE": 29.8,
-    "MUV2.DE": 47.5,
-    "SAP.DE": 50.3
+    "RWE.DE": 34.2,
+    "AIR.DE": 2.9,
+    "JPM": 29.4,
+    "BMW.DE": 3.1,
+    "MBG.DE": 10.2
   }
 }

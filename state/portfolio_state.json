@@ -1,6 +1,6 @@
 {
   "starting_cash": 10000.0,
-  "cash": 4972.49983215332,
+  "cash": 475.1851321533204,
   "fee_per_trade": 1.0,
   "external_profit": 241.99996948242188,
   "positions": {
@@ -21,6 +21,33 @@
       "dip_buy_count": 0,
       "opened_at": "2026-10-22T09:20:00",
       "last_action_at": "2026-10-22T09:20:00"
+    },
+    "ADS.DE": {
+      "ticker": "ADS.DE",
+      "shares": 9.0,
+      "avg_cost": 174.55,
+      "current_price": 174.55,
+      "dip_buy_count": 0,
+      "opened_at": "2026-11-08T10:28:40.927789",
+      "last_action_at": "2026-11-08T10:28:40.927789"
+    },
+    "MSFT": {
+      "ticker": "MSFT",
+      "shares": 3.0,
+      "avg_cost": 472.5665,
+      "current_price": 472.5665,
+      "dip_buy_count": 0,
+      "opened_at": "2026-11-08T10:28:40.927789",
+      "last_action_at": "2026-11-08T10:28:40.927789"
+    },
+    "V": {
+      "ticker": "V",
+      "shares": 4.0,
+      "avg_cost": 376.4163,
+      "current_price": 376.4163,
+      "dip_buy_count": 0,
+      "opened_at": "2026-11-08T10:28:40.927789",
+      "last_action_at": "2026-11-08T10:28:40.927789"
     }
   },
   "trades": [
@@ -123,6 +150,36 @@
       "fee": 1.0,
       "reason": "Hybrid/Algo: Teilverkauf: +8.5% ≥ +6.0% → ca. 100% | kein KI-Veto",
       "locked_profit": 121.4
+    },
+    {
+      "date": "2026-11-08T10:28:40.927789",
+      "ticker": "ADS.DE",
+      "action": "buy",
+      "shares": 9.0,
+      "price": 174.55,
+      "fee": 1.0,
+      "reason": "Hybrid/Algo: Neukauf ADS.DE (Score 64, ~40% Cash) · Cash-Druck | kein KI-Veto",
+      "locked_profit": 0.0
+    },
+    {
+      "date": "2026-11-08T10:28:40.927789",
+      "ticker": "MSFT",
+      "action": "buy",
+      "shares": 3.0,
+      "price": 472.5665,
+      "fee": 1.0,
+      "reason": "Hybrid/Algo: Neukauf MSFT (Score 49, ~40% Cash) · Cash-Druck | kein KI-Veto",
+      "locked_profit": 0.0
+    },
+    {
+      "date": "2026-11-08T10:28:40.927789",
+      "ticker": "V",
+      "action": "buy",
+      "shares": 4.0,
+      "price": 376.4163,
+      "fee": 1.0,
+      "reason": "Hybrid/Algo: Neukauf V (Score 37, ~40% Cash) · Cash-Druck | kein KI-Veto",
+      "locked_profit": 0.0
     }
   ]
 }
