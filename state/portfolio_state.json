@@ -8,7 +8,7 @@
       "ticker": "SAP.DE",
       "shares": 13.0,
       "avg_cost": 207.33076946551984,
-      "current_price": 215.75,
+      "current_price": 210.75,
       "dip_buy_count": 0,
       "opened_at": "2026-10-22T09:20:00",
       "last_action_at": "2026-11-06T01:42:10.034306"
@@ -17,7 +17,7 @@
       "ticker": "ENR.DE",
       "shares": 20.0,
       "avg_cost": 128.4600067138672,
-      "current_price": 113.83999633789062,
+      "current_price": 118.1,
       "dip_buy_count": 0,
       "opened_at": "2026-10-22T09:20:00",
       "last_action_at": "2026-10-22T09:20:00"

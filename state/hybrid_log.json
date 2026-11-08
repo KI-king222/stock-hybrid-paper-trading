@@ -818,6 +818,59 @@
         "SAP.DE",
         "ENR.DE"
       ]
+    },
+    {
+      "date": "2026-11-08T09:09:23",
+      "source": "Hybrid A: Algo + KI-Gate (Kurse EUR)",
+      "n_signals": 4,
+      "decisions": [
+        {
+          "ticker": "HNR1.DE",
+          "algo_action": "teilverkauf",
+          "final": "kein_bestand",
+          "gate": "kein KI-Veto",
+          "score": 33.1
+        },
+        {
+          "ticker": "MUV2.DE",
+          "algo_action": "teilverkauf",
+          "final": "kein_bestand",
+          "gate": "kein KI-Veto",
+          "score": 47.5
+        },
+        {
+          "ticker": "SAP.DE",
+          "algo_action": "halten",
+          "final": "halten",
+          "gate": "halten – Gate nicht anwendbar",
+          "score": 50.3
+        },
+        {
+          "ticker": "ENR.DE",
+          "algo_action": "halten",
+          "final": "halten",
+          "gate": "halten – Gate nicht anwendbar",
+          "score": 29.8
+        }
+      ],
+      "cash": 4972.5,
+      "equity": 10074.25,
+      "external_profit": 242.0,
+      "wealth": 10316.25,
+      "positions": [
+        "SAP.DE",
+        "ENR.DE"
+      ],
+      "prices_eur_sample": {
+        "ASML.AS": 1283.6,
+        "MUV2.DE": 569.2,
+        "RWE.DE": 57.64,
+        "BMW.DE": 59.36,
+        "OR.PA": 449.8,
+        "GOOGL": 253.6279,
+        "BAS.DE": 54.28,
+        "SIE.DE": 263.65
+      }
     }
   ]
 }
