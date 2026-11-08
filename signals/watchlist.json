@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-11-07T23:19:00",
+  "updated_at": "2026-11-08T09:25:00",
   "scale": "1 = hoch (nahe Interesse), 2 = mittel, 3 = niedrig",
   "items": [
     {
@@ -23,7 +23,7 @@
       "title": "SAP",
       "priority": 2,
       "status": "active",
-      "reason": "Im Hybrid-Depot gehalten (13 Stk., P&L ~+4%), Cloud/AI-These intakt, Score 50 – weiter beobachten",
+      "reason": "Im Hybrid-Depot gehalten (13 Stk., P&L ~+1.6%), Cloud/AI-These intakt, Score 46 – weiter beobachten",
       "added_at": "2026-10-23"
     },
     {
@@ -47,7 +47,7 @@
       "title": "Hannover Rück",
       "priority": 2,
       "status": "active",
-      "reason": "Vollverkauft im Hybrid (letzter TP +11%), Guidance/Solvency stark, Qualität intakt – weiter beobachten für möglichen Wiedereinstieg",
+      "reason": "Vollverkauft im Hybrid, Guidance/Solvency stark, Qualität intakt – weiter beobachten für möglichen Wiedereinstieg",
       "added_at": "2026-11-03"
     },
     {
@@ -55,7 +55,7 @@
       "title": "Munich Re",
       "priority": 2,
       "status": "active",
-      "reason": "Vollverkauft im Hybrid (letzter TP +8.5%), Dividendenqualität und Score solide – weiter beobachten",
+      "reason": "Vollverkauft im Hybrid, Dividendenqualität und Score solide – weiter beobachten",
       "added_at": "2026-11-06"
     },
     {
@@ -63,8 +63,32 @@
       "title": "Siemens Energy",
       "priority": 2,
       "status": "active",
-      "reason": "Im Hybrid-Depot gehalten (20 Stk., P&L ~-11.4%), These intakt (Backlog/Gas-Demand/Guidance), Algo hält (Score/Momentum schwach) – beobachten für möglichen Nachkauf bei tieferem Dip und besserem Score",
+      "reason": "Im Hybrid-Depot gehalten (20 Stk., P&L ~-8.1%), These intakt (Backlog/Gas-Demand/Guidance), Algo hält (Score/Momentum schwach) – beobachten für möglichen Nachkauf bei tieferem Dip und besserem Score",
       "added_at": "2026-11-06"
+    },
+    {
+      "ticker": "ADS.DE",
+      "title": "Adidas",
+      "priority": 2,
+      "status": "active",
+      "reason": "Algo-Neukauf vorgeschlagen (Score 64, Cash-Druck) – Qualität/Consumer-Zyklus beobachten, These prüfen",
+      "added_at": "2026-11-08"
+    },
+    {
+      "ticker": "MSFT",
+      "title": "Microsoft",
+      "priority": 2,
+      "status": "active",
+      "reason": "Algo-Neukauf vorgeschlagen (Score 49) – AI/Cloud-Qualität, weiter beobachten",
+      "added_at": "2026-11-08"
+    },
+    {
+      "ticker": "V",
+      "title": "Visa",
+      "priority": 3,
+      "status": "active",
+      "reason": "Algo-Neukauf vorgeschlagen (Score 37, niedriger) – Payment-Qualität beobachten, Valuation/These prüfen",
+      "added_at": "2026-11-08"
     }
   ]
 }

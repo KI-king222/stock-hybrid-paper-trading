@@ -1,7 +1,7 @@
 {
-  "updated_at": "2026-11-07T23:19:00",
+  "updated_at": "2026-11-08T09:25:00",
   "source": "Grok Automation",
   "blocks": [],
   "half": [],
-  "notes": "Algo-Lauf 07.11.2026 00:38 (decisions_log): Trade-Aktionen teilverkauf HNR1.DE (4 Stk., +11.0% ≥ +6% → ca. 100%, Score 33.1), teilverkauf MUV2.DE (3 Stk., +8.5% ≥ +6% → ca. 100%, Score 47.5). Halten: SAP.DE (+5.7%, Score 50.3), ENR.DE (Dip-Zone, Score/Momentum zu schwach 30/-25, Score 29.8). Hybrid signals/algo_signals.json bestätigt. Keine block/half (Default allow): reine Gewinnmitnahmen bei positivem P&L, These intakt (KI: HNR1 TP erfolgt, MUV2 Qualität). Bei halten weder block noch half. Algo führt. Hybrid-Portfolio aktuell: SAP 13 Stk. ~+4%, ENR 20 Stk. ~-11.4%, HNR1/MUV2 bereits voll verkauft. KI-Kontext: SAP Cloud/AI intakt, ENR These intakt (Backlog/Guidance). Gehirn leer. Watchlist aktualisiert (HNR1/MUV2 nach Vollverkauf weiter beobachten). Kein Hybrid-Trade."
+  "notes": "Algo-Lauf 08.11.2026 09:09 (decisions_log): Halten SAP.DE (P&L +3.3%, Score 46.3), ENR.DE (P&L -9.3%, Score 29.8). Neukauf ADS.DE (9 Stk., Score 64.3), MSFT (3 Stk., Score 49.4), V (4 Stk., Score 37.2) wegen Cash-Druck. Keine block/half (Default allow): keine klare gebrochene These oder extremes Risiko; Scores ok, KI-Kontext: SAP Cloud/AI intakt, ENR These intakt (Backlog/Guidance), AAPL kürzlich gekauft (Qualität). Bei halten weder block noch half. Algo führt. Hybrid-Portfolio: SAP 13 Stk. ~+1.6%, ENR 20 Stk. ~-8.1%, Cash ~4972. Gehirn leer. Watchlist aktualisiert (ADS.DE/MSFT/V ergänzt). Kein Hybrid-Trade."
 }
