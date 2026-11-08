@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Täglicher Hybrid-Lauf Variante A – inkl. Startkauf bei leerem Depot."""
+"""Täglicher Hybrid-Lauf Variante A – Kurse in EUR."""
 from __future__ import annotations
 
 import json
@@ -14,6 +14,7 @@ sys.path.insert(0, str(ROOT))
 import yfinance as yf  # noqa: E402
 
 from portfolio import Portfolio  # noqa: E402
+from fx import to_eur  # noqa: E402
 from hybrid.fetch_remote import load_algo_last_run, load_ki_artifacts  # noqa: E402
 from hybrid.orchestrator import apply_hybrid  # noqa: E402
 from hybrid.ki_gate import resolve_gate  # noqa: E402
@@ -32,6 +33,7 @@ def load_cfg() -> dict:
 
 
 def get_prices(tickers) -> dict:
+    """Native Close → EUR."""
     out = {}
     for t in tickers:
         try:
@@ -40,7 +42,7 @@ def get_prices(tickers) -> dict:
                 continue
             p = float(h["Close"].dropna().iloc[-1])
             if math.isfinite(p) and p > 0:
-                out[t] = p
+                out[t] = round(to_eur(p, t), 4)
         except Exception as e:
             print(f"Preis {t}: {e}")
     return out
@@ -55,10 +57,6 @@ def bootstrap_portfolio(
     ki: dict,
     now: datetime,
 ) -> list:
-    """
-    Wenn Hybrid noch keine Positionen hat: wie Algo starten –
-    score-gewichtet kaufen (KI-Gate kann block/half).
-    """
     log = []
     if pf.positions:
         return log
@@ -66,16 +64,9 @@ def bootstrap_portfolio(
         log.append({"final": "bootstrap_fail", "grund": "keine Preise"})
         return log
 
-    tickers = [t for t in universe if t in prices]
-    if not tickers:
-        tickers = list(prices.keys())
+    tickers = [t for t in universe if t in prices] or list(prices.keys())
+    weights = {t: max(float(scores.get(t) or 20.0), 5.0) for t in tickers}
 
-    weights = {}
-    for t in tickers:
-        sc = float(scores.get(t) or 20.0)
-        weights[t] = max(sc, 5.0)
-
-    # Gate anwenden
     allowed = []
     for t in tickers:
         mode, reason = resolve_gate(GATE, ki, "neukauf", t)
@@ -96,9 +87,8 @@ def bootstrap_portfolio(
         log.append({"final": "bootstrap_fail", "grund": "alles geblockt"})
         return log
 
-    # Gewichte nur für erlaubte
     wsum = sum(weights.get(t, 5.0) for t, _, _ in allowed) or 1.0
-    investable = pf.cash * 0.98  # kleine Reserve
+    investable = pf.cash * 0.98
 
     for t, mode, reason in allowed:
         w = weights.get(t, 5.0) / wsum
@@ -123,7 +113,7 @@ def bootstrap_portfolio(
             float(n),
             px,
             now,
-            reason=f"Hybrid Startkauf Score {weights.get(t, 0):.0f} | {reason}",
+            reason=f"Hybrid Startkauf Score {weights.get(t, 0):.0f} | {reason} | Kurs EUR",
         )
         log.append(
             {
@@ -131,6 +121,7 @@ def bootstrap_portfolio(
                 "algo_action": "startkauf",
                 "final": "kauf" if ok else "kauf_fail",
                 "shares": n,
+                "price_eur": px,
                 "gate": reason,
                 "score": scores.get(t),
             }
@@ -180,14 +171,12 @@ def main():
     now = datetime.now()
     log_entries = []
 
-    # --- Startkauf, wenn Depot leer ---
     if not pf.positions:
         print("Depot leer → Bootstrap-Startkauf")
         log_entries.extend(
             bootstrap_portfolio(pf, universe or list(prices.keys()), scores, prices, cfg, ki, now)
         )
     else:
-        # Normale Hybrid-Logik nur wenn schon investiert
         log_entries.extend(apply_hybrid(pf, signals, prices, cfg, GATE, ki, now))
 
     pf.update_prices(prices)
@@ -198,7 +187,7 @@ def main():
         history = json.loads(LOG.read_text(encoding="utf-8")).get("runs", [])
     run = {
         "date": now.isoformat(timespec="seconds"),
-        "source": "Hybrid A: Algo + KI-Gate",
+        "source": "Hybrid A: Algo + KI-Gate (Kurse EUR)",
         "n_signals": len(signals),
         "decisions": log_entries,
         "cash": round(pf.cash, 2),
@@ -206,6 +195,7 @@ def main():
         "external_profit": round(pf.external_profit, 2),
         "wealth": round(pf.total_wealth(), 2),
         "positions": list(pf.positions.keys()),
+        "prices_eur_sample": {k: prices[k] for k in list(prices)[:8]},
     }
     history.append(run)
     LOG.write_text(
@@ -217,7 +207,7 @@ def main():
         "headline": (
             f"Hybrid A {now.strftime('%d.%m.%Y %H:%M')} | "
             f"Vermögen {pf.total_wealth():,.0f} € | Cash {pf.cash:,.0f} € | "
-            f"Pos {len(pf.positions)}"
+            f"Pos {len(pf.positions)} | Kurse EUR"
         ),
         "wealth": round(pf.total_wealth(), 2),
         "cash": round(pf.cash, 2),
