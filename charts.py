@@ -1,7 +1,8 @@
-"""Chart helpers – EUR wie KI-Version, Einstand deckungsgleich."""
+"""Charts – Einstandslinie schneidet die Kurve am Kaufzeitpunkt."""
 from __future__ import annotations
 
 import math
+from typing import Optional
 
 import streamlit as st
 import pandas as pd
@@ -13,15 +14,10 @@ try:
 except ImportError:
     PLOTLY_AVAILABLE = False
 
-from fx import to_eur, native_currency, _fx_to_eur
+from fx import native_currency, _fx_to_eur
 
 
-def get_price_history(
-    ticker: str,
-    period: str = "1mo",
-    interval: str = "1d",
-    live_eur: float | None = None,
-):
+def get_price_history(ticker: str, period: str = "1mo", interval: str = "1d"):
     import yfinance as yf
 
     h = yf.Ticker(ticker).history(period=period, interval=interval, auto_adjust=True)
@@ -44,14 +40,29 @@ def get_price_history(
     df = df[df["Kurs"] > 0]
     if df.empty:
         return None
-
-    last = float(df["Kurs"].iloc[-1])
-    if live_eur and live_eur > 0 and last > 0:
-        scale = float(live_eur) / last
-        if 0.98 <= scale <= 1.02:
-            df["Kurs"] = df["Kurs"] * scale
-
     return df[["Date", "Kurs"]].reset_index(drop=True)
+
+
+def snap_to_einstand(
+    hist: pd.DataFrame, avg: float, buy_dt: Optional[pd.Timestamp]
+) -> pd.DataFrame:
+    if hist is None or hist.empty or not avg or avg <= 0:
+        return hist
+    h = hist.copy()
+    if buy_dt is not None and not pd.isna(buy_dt):
+        buy_naive = pd.Timestamp(buy_dt)
+        if buy_naive.tzinfo is not None:
+            buy_naive = buy_naive.tz_localize(None)
+        i = int((h["Date"] - buy_naive).abs().idxmin())
+    else:
+        i = len(h) - 1
+    ref = float(h.loc[i, "Kurs"])
+    if ref <= 0:
+        return h
+    scale = avg / ref
+    if 0.95 <= scale <= 1.05:
+        h["Kurs"] = h["Kurs"] * scale
+    return h
 
 
 def render_position_charts(positions: dict):
@@ -94,18 +105,22 @@ def render_position_charts(positions: dict):
     for ticker, pos in positions.items():
         try:
             avg = round(float(pos.get("avg_cost") or 0), 2)
-            live = float(pos.get("current_price") or avg)
-            hist = get_price_history(
-                ticker,
-                period=cfg["period"],
-                interval=cfg["interval"],
-                live_eur=live,
-            )
+            opened = pos.get("opened_at") or pos.get("last_action_at")
+            buy_dt = None
+            try:
+                if opened:
+                    buy_dt = pd.to_datetime(opened)
+            except Exception:
+                buy_dt = None
+
+            hist = get_price_history(ticker, period=cfg["period"], interval=cfg["interval"])
             if hist is None or hist.empty:
                 st.info(f"Kein Kursverlauf für {ticker}.")
                 continue
-            hist = hist.copy().reset_index(drop=True)
+            hist = snap_to_einstand(hist, avg, buy_dt)
+            hist = hist.reset_index(drop=True)
             hist["i"] = hist.index.astype(int)
+
             y_min = min(float(hist["Kurs"].min()), avg if avg else float(hist["Kurs"].min()))
             y_max = max(float(hist["Kurs"].max()), avg if avg else float(hist["Kurs"].max()))
             pad = max((y_max - y_min) * 0.03, 0.5)
