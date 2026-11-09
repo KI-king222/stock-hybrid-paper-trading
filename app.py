@@ -8,10 +8,9 @@ from typing import Dict
 
 import pandas as pd
 import streamlit as st
-import yfinance as yf
 
 from charts import render_position_charts
-from fx import to_eur, native_currency
+from fx import to_eur, native_currency, raw_live_price
 
 ROOT = Path(__file__).resolve().parent
 STATE = ROOT / "state"
@@ -28,9 +27,7 @@ st.markdown(
 )
 
 st.title("🔗 Hybrid Paper Trading")
-st.caption(
-    "Variante A · **Kurse in EUR** (US via FX) · Charts live · Trades nach Hybrid-Workflow"
-)
+st.caption("Variante A · **Live-Kurse in EUR** (Intraday) · Charts live")
 
 
 def load(path: Path):
@@ -63,16 +60,12 @@ def last_action_date(trades, ticker) -> str:
 
 
 def fetch_live_prices(tickers) -> Dict[str, float]:
-    """Immer EUR."""
     out = {}
     for t in tickers:
         try:
-            h = yf.Ticker(t).history(period="5d")
-            if h is None or h.empty:
-                continue
-            p = float(h["Close"].dropna().iloc[-1])
-            if math.isfinite(p) and p > 0:
-                out[t] = round(to_eur(p, t), 4)
+            raw = raw_live_price(t)
+            if raw is not None and math.isfinite(raw) and raw > 0:
+                out[t] = round(to_eur(raw, t), 4)
         except Exception:
             pass
     return out
@@ -84,9 +77,6 @@ log = load(STATE / "hybrid_log.json")
 gate = load(ROOT / "signals" / "ki_gate.json")
 wl = load(ROOT / "signals" / "watchlist.json")
 cfg = load(ROOT / "config.json") or {}
-rules_md = ""
-if (ROOT / "RULES.md").exists():
-    rules_md = (ROOT / "RULES.md").read_text(encoding="utf-8")
 
 positions = (pf or {}).get("positions") or {}
 trades = (pf or {}).get("trades") or []
@@ -101,16 +91,15 @@ if positions:
                 positions[t]["current_price"] = p
 
 if live_ok:
-    st.caption("Kurse: **live in EUR** (US umgerechnet) · Bestand: letzter Hybrid-Lauf")
+    st.caption("Kurse: **live** (fast_info / 5m) in EUR · Seite neu laden aktualisiert")
 elif positions:
-    st.caption("Kurse: gespeicherter Stand (Live-Abruf fehlgeschlagen)")
+    st.caption("Kurse: gespeicherter Stand")
 
 if pf:
     cash = float(pf.get("cash") or 0)
     ext = float(pf.get("external_profit") or 0)
     start = float(pf.get("starting_cash") or 10_000)
-    positions_mv = 0.0
-    positions_cost = 0.0
+    positions_mv = positions_cost = 0.0
     for p in positions.values():
         sh = float(p.get("shares", 0))
         avg = float(p.get("avg_cost") or 0)
@@ -120,28 +109,12 @@ if pf:
     laufendes_depot = cash + positions_mv
     gesamtvermoegen = laufendes_depot + ext
     unrealisiert = positions_mv - positions_cost
-    vs_start_ohne_lohn = laufendes_depot - start
-    vs_start_gesamt = gesamtvermoegen - start
-
-    st.markdown("#### Kennzahlen")
-    st.caption("Alle Kurse/Einstände in **EUR**.")
 
     r1 = st.columns(4)
-    r1[0].metric("Gesamtvermögen", f"{gesamtvermoegen:,.2f} €", f"{vs_start_gesamt:+.2f} € vs. Start")
-    r1[1].metric("Laufendes Depot", f"{laufendes_depot:,.2f} €", f"{vs_start_ohne_lohn:+.2f} € vs. Start")
-    r1[2].metric("Offene Aktien (Kurswert)", f"{positions_mv:,.2f} €", f"{unrealisiert:+.2f} € P&L")
-    r1[3].metric(
-        "Offene Aktien P&L",
-        f"{unrealisiert:+.2f} €",
-        f"{(unrealisiert/positions_cost*100) if positions_cost else 0:+.1f}%",
-    )
-
-    r2 = st.columns(3)
-    r2[0].metric("Investierbares Cash", f"{cash:,.2f} €")
-    r2[1].metric("Gesperrter Lohn", f"{ext:,.2f} €")
-    r2[2].metric("Startkapital", f"{start:,.0f} €")
-else:
-    st.write("Kein portfolio_state.json – noch kein Lauf.")
+    r1[0].metric("Gesamtvermögen", f"{gesamtvermoegen:,.2f} €", f"{gesamtvermoegen-start:+.2f} €")
+    r1[1].metric("Laufendes Depot", f"{laufendes_depot:,.2f} €")
+    r1[2].metric("Offene Aktien", f"{positions_mv:,.2f} €", f"{unrealisiert:+.2f} €")
+    r1[3].metric("Cash / Lohn", f"{cash:,.0f} / {ext:,.0f} €")
 
 st.divider()
 st.subheader("Offene Positionen")
@@ -153,12 +126,9 @@ if positions:
         px = float(p.get("current_price") or avg)
         pnl = sh * px - sh * avg
         pct = (px / avg - 1) * 100 if avg else 0
-        opened = fmt_dt(p.get("opened_at")) if p.get("opened_at") else first_buy_date(trades, t)
-        last_a = fmt_dt(p.get("last_action_at")) if p.get("last_action_at") else last_action_date(trades, t)
         rows.append({
             "Ticker": t,
-            "Kaufdatum": opened,
-            "Letzte Aktion": last_a,
+            "Kaufdatum": fmt_dt(p.get("opened_at")) if p.get("opened_at") else first_buy_date(trades, t),
             "Stück": sh,
             "Einstand €": round(avg, 2),
             "Kurs €": round(px, 2),
@@ -168,33 +138,10 @@ if positions:
             "Notiz": "US→EUR" if native_currency(t) != "EUR" else "",
         })
     st.dataframe(pd.DataFrame(rows), use_container_width=True, hide_index=True)
-else:
-    st.write("Keine Positionen.")
 
 st.divider()
-st.subheader("Watchlist")
-if wl and wl.get("items"):
-    items = [i for i in wl["items"] if i.get("status", "active") == "active"]
-    if items:
-        st.dataframe(
-            pd.DataFrame([{
-                "Ticker": i.get("ticker"), "Name": i.get("title"),
-                "Priorität": i.get("priority"), "Seit": i.get("added_at"),
-                "Grund": i.get("reason"),
-            } for i in sorted(items, key=lambda x: x.get("priority") or 99)]),
-            use_container_width=True, hide_index=True,
-        )
-    else:
-        st.info("Keine aktiven Einträge")
-else:
-    st.info("Noch leer.")
-
-st.divider()
-st.subheader("Letzter Lauf")
 if status:
     st.info(status.get("headline") or status.get("last_run") or "")
-else:
-    st.warning("Noch kein Hybrid-Lauf.")
 
 st.divider()
 render_position_charts(positions)
@@ -210,31 +157,5 @@ if trades:
         "Kurs €": round(float(t.get("price") or 0), 2),
         "Begründung": t.get("reason") or "",
     } for t in trades]), use_container_width=True, hide_index=True)
-else:
-    st.write("Noch keine Trades.")
 
-if log and log.get("runs"):
-    st.markdown("**Hybrid-Läufe**")
-    for run in reversed(log["runs"][-20:]):
-        date = fmt_dt(run.get("date"))
-        with st.expander(f"Hybrid: {date} – Vermögen {run.get('wealth', '–')} €", expanded=False):
-            if run.get("decisions"):
-                st.dataframe(pd.DataFrame(run["decisions"]), use_container_width=True, hide_index=True)
-
-st.divider()
-st.subheader("Letzte Entscheidungen")
-if log and log.get("runs"):
-    last = log["runs"][-1]
-    st.write(f"**{fmt_dt(last.get('date'))}** · {last.get('source', '')}")
-    if last.get("decisions"):
-        st.dataframe(pd.DataFrame(last["decisions"]), use_container_width=True, hide_index=True)
-
-st.subheader("KI-Gate")
-if gate:
-    st.write(f"**Blocks:** {gate.get('blocks') or '–'}")
-    st.write(f"**Half:** {gate.get('half') or '–'}")
-    st.caption(gate.get("notes") or "")
-else:
-    st.write("Keine ki_gate.json")
-
-st.caption("Paper-Trading · Keine Anlageberatung · Basiswährung EUR")
+st.caption("Paper-Trading · Basiswährung EUR")
