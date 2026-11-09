@@ -1,4 +1,4 @@
-"""Chart helpers – Kurse immer in EUR."""
+"""Chart helpers – EUR wie KI-Version, Einstand deckungsgleich."""
 from __future__ import annotations
 
 import math
@@ -13,10 +13,15 @@ try:
 except ImportError:
     PLOTLY_AVAILABLE = False
 
-from fx import to_eur, native_currency
+from fx import to_eur, native_currency, _fx_to_eur
 
 
-def get_price_history(ticker: str, period: str = "1mo", interval: str = "1d"):
+def get_price_history(
+    ticker: str,
+    period: str = "1mo",
+    interval: str = "1d",
+    live_eur: float | None = None,
+):
     import yfinance as yf
 
     h = yf.Ticker(ticker).history(period=period, interval=interval, auto_adjust=True)
@@ -26,10 +31,27 @@ def get_price_history(ticker: str, period: str = "1mo", interval: str = "1d"):
     date_col = "Datetime" if "Datetime" in df.columns else "Date"
     df = df.rename(columns={date_col: "Date", "Close": "Kurs"})
     df["Date"] = pd.to_datetime(df["Date"], utc=True).dt.tz_convert(None)
-    df["Kurs"] = df["Kurs"].apply(
-        lambda x: to_eur(float(x), ticker) if math.isfinite(float(x)) and float(x) > 0 else x
-    )
-    return df[["Date", "Kurs"]].dropna()
+
+    ccy = native_currency(ticker)
+    native = df["Kurs"].astype(float)
+    if ccy == "EUR":
+        df["Kurs"] = native
+    else:
+        rate = _fx_to_eur(ccy)
+        df["Kurs"] = native * rate
+
+    df = df.dropna(subset=["Kurs"])
+    df = df[df["Kurs"] > 0]
+    if df.empty:
+        return None
+
+    last = float(df["Kurs"].iloc[-1])
+    if live_eur and live_eur > 0 and last > 0:
+        scale = float(live_eur) / last
+        if 0.98 <= scale <= 1.02:
+            df["Kurs"] = df["Kurs"] * scale
+
+    return df[["Date", "Kurs"]].reset_index(drop=True)
 
 
 def render_position_charts(positions: dict):
@@ -71,8 +93,14 @@ def render_position_charts(positions: dict):
 
     for ticker, pos in positions.items():
         try:
-            avg = float(pos.get("avg_cost") or 0)
-            hist = get_price_history(ticker, period=cfg["period"], interval=cfg["interval"])
+            avg = round(float(pos.get("avg_cost") or 0), 2)
+            live = float(pos.get("current_price") or avg)
+            hist = get_price_history(
+                ticker,
+                period=cfg["period"],
+                interval=cfg["interval"],
+                live_eur=live,
+            )
             if hist is None or hist.empty:
                 st.info(f"Kein Kursverlauf für {ticker}.")
                 continue
