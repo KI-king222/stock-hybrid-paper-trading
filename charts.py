@@ -1,5 +1,7 @@
-"""Chart helpers – Stil wie KI-Paper-Trading."""
+"""Chart helpers – Kurse immer in EUR."""
 from __future__ import annotations
+
+import math
 
 import streamlit as st
 import pandas as pd
@@ -11,6 +13,8 @@ try:
 except ImportError:
     PLOTLY_AVAILABLE = False
 
+from fx import to_eur, native_currency
+
 
 def get_price_history(ticker: str, period: str = "1mo", interval: str = "1d"):
     import yfinance as yf
@@ -19,15 +23,17 @@ def get_price_history(ticker: str, period: str = "1mo", interval: str = "1d"):
     if h is None or h.empty:
         return None
     df = h.reset_index()
-    # Date / Datetime column
     date_col = "Datetime" if "Datetime" in df.columns else "Date"
     df = df.rename(columns={date_col: "Date", "Close": "Kurs"})
     df["Date"] = pd.to_datetime(df["Date"], utc=True).dt.tz_convert(None)
+    df["Kurs"] = df["Kurs"].apply(
+        lambda x: to_eur(float(x), ticker) if math.isfinite(float(x)) and float(x) > 0 else x
+    )
     return df[["Date", "Kurs"]].dropna()
 
 
 def render_position_charts(positions: dict):
-    st.subheader("Kursverlauf der aktuellen Positionen")
+    st.subheader("Kursverlauf (EUR)")
     period_config = {
         "1T": {"period": "1d", "interval": "5m"},
         "1W": {"period": "5d", "interval": "15m"},
@@ -52,13 +58,8 @@ def render_position_charts(positions: dict):
         "responsive": True,
         "doubleClick": "reset",
         "modeBarButtonsToRemove": [
-            "zoom2d",
-            "select2d",
-            "lasso2d",
-            "autoScale2d",
-            "toggleSpikelines",
-            "hoverClosestCartesian",
-            "hoverCompareCartesian",
+            "zoom2d", "select2d", "lasso2d", "autoScale2d",
+            "toggleSpikelines", "hoverClosestCartesian", "hoverCompareCartesian",
         ],
     }
     if not PLOTLY_AVAILABLE:
@@ -87,6 +88,8 @@ def render_position_charts(positions: dict):
             )
             tick_idx = sorted(set(tick_idx))
             ticktext = [hist.loc[i, "Date"].strftime("%d.%m") for i in tick_idx]
+            ccy = native_currency(ticker)
+            title_extra = " · EUR" + (f" (aus {ccy})" if ccy != "EUR" else "")
 
             fig = go.Figure()
             fig.add_trace(
@@ -114,7 +117,7 @@ def render_position_charts(positions: dict):
                 )
             fig.update_layout(
                 title=dict(
-                    text=f"{ticker}  ·  {selected_label}",
+                    text=f"{ticker}  ·  {selected_label}{title_extra}",
                     font=dict(size=17, color="#F5F5F7"),
                     x=0.0,
                     xanchor="left",
