@@ -1,8 +1,8 @@
-"""Währung → EUR für Hybrid-Preisabruf."""
+"""Währung → EUR + frischester Native-Kurs."""
 from __future__ import annotations
 
 import math
-from typing import Dict
+from typing import Dict, Optional
 
 import yfinance as yf
 
@@ -59,3 +59,34 @@ def to_eur(price_native: float, ticker: str) -> float:
     if ccy == "EUR":
         return float(price_native)
     return float(price_native) * _fx_to_eur(ccy)
+
+
+def raw_live_price(ticker: str) -> Optional[float]:
+    t = yf.Ticker(ticker)
+    try:
+        fi = t.fast_info
+        for attr in ("last_price", "lastPrice", "regular_market_price", "regularMarketPrice"):
+            v = getattr(fi, attr, None)
+            if v is None and isinstance(fi, dict):
+                v = fi.get(attr)
+            if _valid(v):
+                return float(v)
+    except Exception:
+        pass
+    try:
+        hi = t.history(period="1d", interval="5m", auto_adjust=True)
+        if hi is not None and not hi.empty:
+            p = float(hi["Close"].dropna().iloc[-1])
+            if _valid(p):
+                return p
+    except Exception:
+        pass
+    try:
+        h = t.history(period="5d", auto_adjust=True)
+        if h is not None and not h.empty:
+            p = float(h["Close"].dropna().iloc[-1])
+            if _valid(p):
+                return p
+    except Exception:
+        pass
+    return None
