@@ -1,4 +1,4 @@
-"""Streamlit Hybrid – Live-Kurse beim Laden wie KI-Version."""
+"""Streamlit Hybrid – Live-Kurse und Charts immer in EUR."""
 from __future__ import annotations
 
 import json
@@ -11,6 +11,7 @@ import streamlit as st
 import yfinance as yf
 
 from charts import render_position_charts
+from fx import to_eur, native_currency
 
 ROOT = Path(__file__).resolve().parent
 STATE = ROOT / "state"
@@ -28,7 +29,7 @@ st.markdown(
 
 st.title("🔗 Hybrid Paper Trading")
 st.caption(
-    "Variante A · Kurse/Charts live beim Öffnen · Trades nur nach Hybrid-Workflow"
+    "Variante A · **Kurse in EUR** (US via FX) · Charts live · Trades nach Hybrid-Workflow"
 )
 
 
@@ -62,6 +63,7 @@ def last_action_date(trades, ticker) -> str:
 
 
 def fetch_live_prices(tickers) -> Dict[str, float]:
+    """Immer EUR."""
     out = {}
     for t in tickers:
         try:
@@ -70,7 +72,7 @@ def fetch_live_prices(tickers) -> Dict[str, float]:
                 continue
             p = float(h["Close"].dropna().iloc[-1])
             if math.isfinite(p) and p > 0:
-                out[t] = p
+                out[t] = round(to_eur(p, t), 4)
         except Exception:
             pass
     return out
@@ -99,7 +101,7 @@ if positions:
                 positions[t]["current_price"] = p
 
 if live_ok:
-    st.caption("Kurse: **live** beim Seitenaufruf · Bestand/Trades: letzter Hybrid-Lauf")
+    st.caption("Kurse: **live in EUR** (US umgerechnet) · Bestand: letzter Hybrid-Lauf")
 elif positions:
     st.caption("Kurse: gespeicherter Stand (Live-Abruf fehlgeschlagen)")
 
@@ -121,46 +123,22 @@ if pf:
     vs_start_ohne_lohn = laufendes_depot - start
     vs_start_gesamt = gesamtvermoegen - start
 
-    st.markdown("#### Kennzahlen – kurz erklärt")
-    st.caption(
-        "**Gesamtvermögen** = Startkapital + gesamter Erfolg (inkl. gesperrtem Lohn).  \n"
-        "**Laufendes Depot** = nur Cash + offene Aktien – **ohne** gesperrten Lohn.  \n"
-        "**Offene Aktien P&L** = wie stehen die Positionen *gerade* (Plus oder Minus)."
-    )
+    st.markdown("#### Kennzahlen")
+    st.caption("Alle Kurse/Einstände in **EUR**.")
 
     r1 = st.columns(4)
-    r1[0].metric(
-        "Gesamtvermögen",
-        f"{gesamtvermoegen:,.2f} €",
-        f"{vs_start_gesamt:+.2f} € vs. Start",
-        help="Startkapital + laufendes Depot + bereits ausgeschütteter/gesperrter Lohn",
-    )
-    r1[1].metric(
-        "Laufendes Depot",
-        f"{laufendes_depot:,.2f} €",
-        f"{vs_start_ohne_lohn:+.2f} € vs. Start",
-        help="Nur investierbares Cash + Kurswert der offenen Aktien – Lohn zählt hier nicht",
-    )
-    r1[2].metric(
-        "Offene Aktien (Kurswert)",
-        f"{positions_mv:,.2f} €",
-        f"{unrealisiert:+.2f} € P&L",
-        help="Nur der Marktwert der noch gehaltenen Aktien",
-    )
+    r1[0].metric("Gesamtvermögen", f"{gesamtvermoegen:,.2f} €", f"{vs_start_gesamt:+.2f} € vs. Start")
+    r1[1].metric("Laufendes Depot", f"{laufendes_depot:,.2f} €", f"{vs_start_ohne_lohn:+.2f} € vs. Start")
+    r1[2].metric("Offene Aktien (Kurswert)", f"{positions_mv:,.2f} €", f"{unrealisiert:+.2f} € P&L")
     r1[3].metric(
         "Offene Aktien P&L",
         f"{unrealisiert:+.2f} €",
         f"{(unrealisiert/positions_cost*100) if positions_cost else 0:+.1f}%",
-        help="Unrealisiert: im Plus wenn Kurse über Einstand, sonst Minus",
     )
 
     r2 = st.columns(3)
     r2[0].metric("Investierbares Cash", f"{cash:,.2f} €")
-    r2[1].metric(
-        "Gesperrter Lohn",
-        f"{ext:,.2f} €",
-        help="Bereits realisierte Gewinne – nicht wieder investieren",
-    )
+    r2[1].metric("Gesperrter Lohn", f"{ext:,.2f} €")
     r2[2].metric("Startkapital", f"{start:,.0f} €")
 else:
     st.write("Kein portfolio_state.json – noch kein Lauf.")
@@ -178,9 +156,16 @@ if positions:
         opened = fmt_dt(p.get("opened_at")) if p.get("opened_at") else first_buy_date(trades, t)
         last_a = fmt_dt(p.get("last_action_at")) if p.get("last_action_at") else last_action_date(trades, t)
         rows.append({
-            "Ticker": t, "Kaufdatum": opened, "Letzte Aktion": last_a,
-            "Stück": sh, "Einstand": round(avg, 2), "Kurs": round(px, 2),
-            "Wert": round(sh * px, 2), "P&L €": round(pnl, 2), "P&L %": round(pct, 2),
+            "Ticker": t,
+            "Kaufdatum": opened,
+            "Letzte Aktion": last_a,
+            "Stück": sh,
+            "Einstand €": round(avg, 2),
+            "Kurs €": round(px, 2),
+            "Wert €": round(sh * px, 2),
+            "P&L €": round(pnl, 2),
+            "P&L %": round(pct, 2),
+            "Notiz": "US→EUR" if native_currency(t) != "EUR" else "",
         })
     st.dataframe(pd.DataFrame(rows), use_container_width=True, hide_index=True)
 else:
@@ -188,7 +173,6 @@ else:
 
 st.divider()
 st.subheader("Watchlist")
-st.markdown("**Skala 1–3**  ·  1 = hoch · 2 = mittel · 3 = niedrig")
 if wl and wl.get("items"):
     items = [i for i in wl["items"] if i.get("status", "active") == "active"]
     if items:
@@ -216,14 +200,14 @@ st.divider()
 render_position_charts(positions)
 
 st.divider()
-st.subheader("Trade-Historie / Change-Katalog")
+st.subheader("Trade-Historie")
 if trades:
     st.dataframe(pd.DataFrame([{
         "Datum": fmt_dt(t.get("date")),
         "Aktion": str(t.get("action") or "").upper(),
         "Ticker": t.get("ticker"),
         "Stück": t.get("shares"),
-        "Kurs": round(float(t.get("price") or 0), 2),
+        "Kurs €": round(float(t.get("price") or 0), 2),
         "Begründung": t.get("reason") or "",
     } for t in trades]), use_container_width=True, hide_index=True)
 else:
@@ -245,8 +229,7 @@ if log and log.get("runs"):
     if last.get("decisions"):
         st.dataframe(pd.DataFrame(last["decisions"]), use_container_width=True, hide_index=True)
 
-st.subheader("KI-Gate (aktuell)")
-st.caption("half/block nur bei Kauf/Verkauf – bei halten wirkungslos")
+st.subheader("KI-Gate")
 if gate:
     st.write(f"**Blocks:** {gate.get('blocks') or '–'}")
     st.write(f"**Half:** {gate.get('half') or '–'}")
@@ -254,13 +237,4 @@ if gate:
 else:
     st.write("Keine ki_gate.json")
 
-st.divider()
-st.subheader("Regelwerk")
-with st.expander("Hybrid-Regeln", expanded=False):
-    st.markdown("Algo führt. KI-Gate: nur block/half bei Trade-Signalen. Kein Auto-Verkauf im Minus.")
-with st.expander("Config", expanded=False):
-    st.json(cfg) if cfg else st.write("–")
-with st.expander("RULES.md", expanded=False):
-    st.markdown(rules_md) if rules_md else st.write("–")
-
-st.caption("Paper-Trading · Keine Anlageberatung")
+st.caption("Paper-Trading · Keine Anlageberatung · Basiswährung EUR")
