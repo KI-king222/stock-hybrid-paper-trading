@@ -1,7 +1,8 @@
-"""Charts – echte EUR-Kurse, Einstand ohne Series-Scale (1T/1W konsistent)."""
-from __future__ import annotations
+"""Hybrid Charts v3 – Einstand = feste EUR-Linie, Kurve = reine Historie.
 
-from typing import Optional
+Kein Scale, kein Live-Punkt-Anhang (beides hat 1T verzerrt).
+"""
+from __future__ import annotations
 
 import streamlit as st
 import pandas as pd
@@ -13,7 +14,9 @@ try:
 except ImportError:
     PLOTLY_AVAILABLE = False
 
-from fx import native_currency, _fx_to_eur, raw_live_price, to_eur
+from fx import native_currency, _fx_to_eur
+
+CHART_VERSION = "v3-2026-11-10"
 
 
 def to_berlin(series: pd.Series) -> pd.Series:
@@ -24,12 +27,8 @@ def to_berlin(series: pd.Series) -> pd.Series:
         return pd.to_datetime(series, errors="coerce")
 
 
-def get_price_history(
-    ticker: str,
-    period: str = "1d",
-    interval: str = "5m",
-    live_eur: Optional[float] = None,
-):
+def get_price_history(ticker: str, period: str = "5d", interval: str = "15m"):
+    """Nur yfinance-Historie → EUR. Kein Nachziehen, kein Scale."""
     import yfinance as yf
 
     h = yf.Ticker(ticker).history(period=period, interval=interval, auto_adjust=True)
@@ -38,40 +37,27 @@ def get_price_history(
     df = h.reset_index()
     date_col = "Datetime" if "Datetime" in df.columns else "Date"
     df["Date"] = to_berlin(df[date_col])
-    native = df["Close"].astype(float)
+
+    native = pd.to_numeric(df["Close"], errors="coerce")
     ccy = native_currency(ticker)
     if ccy == "EUR":
         df["Kurs"] = native
     else:
-        df["Kurs"] = native * _fx_to_eur(ccy)
+        rate = float(_fx_to_eur(ccy))
+        df["Kurs"] = native * rate
+
     df = df.dropna(subset=["Kurs", "Date"])
     df = df[df["Kurs"] > 0]
     if df.empty:
         return None
-
-    if live_eur is None:
-        raw = raw_live_price(ticker)
-        if raw is not None:
-            live_eur = to_eur(raw, ticker)
-    # Nur Endpunkt an Live – keine Skalierung der ganzen Serie
-    if live_eur and live_eur > 0:
-        now_b = pd.Timestamp.now(tz="Europe/Berlin").tz_localize(None)
-        last_t = df["Date"].iloc[-1]
-        gap_min = (now_b - last_t).total_seconds() / 60.0 if pd.notna(last_t) else 999
-        last_k = float(df["Kurs"].iloc[-1])
-        if gap_min > 10 or abs(last_k - live_eur) / max(live_eur, 1e-9) > 0.001:
-            df = pd.concat(
-                [df, pd.DataFrame([{"Date": now_b, "Kurs": float(live_eur)}])],
-                ignore_index=True,
-            )
     return df[["Date", "Kurs"]].reset_index(drop=True)
 
 
 def render_position_charts(positions: dict):
     st.subheader("Kursverlauf (EUR)")
     st.caption(
-        "Einstand = gebuchter Kaufkurs. Kurve = echte Marktpreise. "
-        "1T und 1W nutzen denselben Maßstab (kein Verzerren)."
+        f"Chart **{CHART_VERSION}** · Einstand = gebuchter Kaufpreis in € · "
+        "Kurve = Börsenhistorie in € · **kein** Strecken der Kurve"
     )
     period_config = {
         "1T": {"period": "1d", "interval": "5m"},
@@ -87,7 +73,7 @@ def render_position_charts(positions: dict):
         index=1,
         horizontal=True,
         label_visibility="collapsed",
-        key="hybrid_chart_period",
+        key="hybrid_chart_period_v3",
     )
     cfg = period_config[selected_label]
     CHART_CONFIG = {
@@ -111,37 +97,54 @@ def render_position_charts(positions: dict):
     for ticker, pos in positions.items():
         try:
             avg = round(float(pos.get("avg_cost") or 0), 2)
-            live = float(pos.get("current_price") or avg)
-
             hist = get_price_history(
-                ticker, period=cfg["period"], interval=cfg["interval"], live_eur=live
+                ticker, period=cfg["period"], interval=cfg["interval"]
             )
             if hist is None or hist.empty:
                 st.info(f"Kein Kursverlauf für {ticker}.")
                 continue
+
             hist = hist.reset_index(drop=True)
             hist["i"] = hist.index.astype(int)
 
             last_dt = hist["Date"].iloc[-1]
             stand = last_dt.strftime("%d.%m. %H:%M") if pd.notna(last_dt) else "?"
             last_px = float(hist["Kurs"].iloc[-1])
+            lo = float(hist["Kurs"].min())
+            hi = float(hist["Kurs"].max())
+
+            # Diagnose: liegt Einstand im sichtbaren Kursband?
+            if avg > 0 and (avg < lo * 0.98 or avg > hi * 1.02):
+                note = (
+                    f" · Einstand außerhalb des {selected_label}-Bands "
+                    f"({lo:.2f}–{hi:.2f} €) – normal, wenn Kauf älter/anderer Tag"
+                )
+            else:
+                note = ""
+
             st.caption(
-                f"**{ticker}** Stand **{stand}** · Kurs **{last_px:.2f} €** · Einstand **{avg:.2f} €**"
+                f"**{ticker}** Stand **{stand}** · Chart **{last_px:.2f} €** "
+                f"(Band {lo:.2f}–{hi:.2f}) · Einstand **{avg:.2f} €**{note}"
             )
 
-            y_min = min(float(hist["Kurs"].min()), avg if avg else float(hist["Kurs"].min()))
-            y_max = max(float(hist["Kurs"].max()), avg if avg else float(hist["Kurs"].max()))
-            pad = max((y_max - y_min) * 0.03, 0.5)
+            y_min = min(lo, avg if avg else lo)
+            y_max = max(hi, avg if avg else hi)
+            pad = max((y_max - y_min) * 0.05, 0.5)
             n = len(hist)
             n_ticks = min(6, n)
             tick_idx = (
                 [int(i * (n - 1) / max(n_ticks - 1, 1)) for i in range(n_ticks)] if n > 1 else [0]
             )
             tick_idx = sorted(set(tick_idx))
-            ticktext = [hist.loc[i, "Date"].strftime("%d.%m %H:%M") for i in tick_idx]
+            if selected_label == "1T":
+                ticktext = [hist.loc[i, "Date"].strftime("%H:%M") for i in tick_idx]
+            else:
+                ticktext = [hist.loc[i, "Date"].strftime("%d.%m %H:%M") for i in tick_idx]
+
             ccy = native_currency(ticker)
-            us = " · US" if ccy != "EUR" else ""
-            title = f"{ticker} · {selected_label} · EUR · Stand {stand}{us}"
+            title = f"{ticker} · {selected_label} · EUR · {stand}" + (
+                f" · aus {ccy}" if ccy != "EUR" else ""
+            )
 
             fig = go.Figure()
             fig.add_trace(
@@ -151,8 +154,7 @@ def render_position_charts(positions: dict):
                     mode="lines",
                     name=ticker,
                     line=dict(width=2.0, color="#30D158"),
-                    fill="tozeroy",
-                    fillcolor="rgba(48, 209, 88, 0.13)",
+                    # kein tozeroy – vermeidet optische Verzerrung
                     customdata=hist["Date"],
                     hovertemplate="<b>%{y:.2f} €</b><br>%{customdata|%d.%m.%Y %H:%M}<extra></extra>",
                 )
@@ -162,7 +164,7 @@ def render_position_charts(positions: dict):
                     y=avg,
                     line_dash="dot",
                     line_color="#FF9F0A",
-                    line_width=1.4,
+                    line_width=1.6,
                     annotation_text=f"Einstand {avg:.2f} €",
                     annotation_position="top left",
                     annotation_font=dict(size=11, color="#FF9F0A"),
@@ -193,6 +195,7 @@ def render_position_charts(positions: dict):
                     ticksuffix=" €",
                     range=[y_min - pad, y_max + pad],
                     fixedrange=False,
+                    autorange=False,
                 ),
                 showlegend=False,
             )
@@ -200,7 +203,7 @@ def render_position_charts(positions: dict):
                 fig,
                 use_container_width=True,
                 config=CHART_CONFIG,
-                key=f"hy_chart_{ticker}_{selected_label}",
+                key=f"hy_v3_{ticker}_{selected_label}",
             )
         except Exception as e:
             st.info(f"Chart {ticker}: {e}")
