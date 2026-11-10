@@ -1,4 +1,4 @@
-"""Streamlit Hybrid – Live-Kurse und Charts immer in EUR."""
+"""Streamlit Hybrid – Live-Kurse EUR, Charts v3 ohne Scale."""
 from __future__ import annotations
 
 import json
@@ -9,7 +9,7 @@ from typing import Dict
 import pandas as pd
 import streamlit as st
 
-from charts import render_position_charts
+from charts import render_position_charts, CHART_VERSION
 from fx import to_eur, native_currency, raw_live_price
 
 ROOT = Path(__file__).resolve().parent
@@ -27,7 +27,7 @@ st.markdown(
 )
 
 st.title("🔗 Hybrid Paper Trading")
-st.caption("Variante A · **Live-Kurse in EUR** (Intraday) · Charts live")
+st.caption(f"Live-Kurse EUR · Charts **{CHART_VERSION}** (Einstand ohne Kurven-Scale)")
 
 
 def load(path: Path):
@@ -52,13 +52,6 @@ def first_buy_date(trades, ticker) -> str:
     return "–"
 
 
-def last_action_date(trades, ticker) -> str:
-    for tr in reversed(trades or []):
-        if tr.get("ticker") == ticker:
-            return fmt_dt(tr.get("date"))
-    return "–"
-
-
 def fetch_live_prices(tickers) -> Dict[str, float]:
     out = {}
     for t in tickers:
@@ -73,13 +66,8 @@ def fetch_live_prices(tickers) -> Dict[str, float]:
 
 pf = load(STATE / "portfolio_state.json")
 status = load(STATE / "last_run_status.json")
-log = load(STATE / "hybrid_log.json")
-gate = load(ROOT / "signals" / "ki_gate.json")
-wl = load(ROOT / "signals" / "watchlist.json")
-cfg = load(ROOT / "config.json") or {}
-
-positions = (pf or {}).get("positions") or {}
 trades = (pf or {}).get("trades") or []
+positions = (pf or {}).get("positions") or {}
 
 live_ok = False
 if positions:
@@ -91,9 +79,9 @@ if positions:
                 positions[t]["current_price"] = p
 
 if live_ok:
-    st.caption("Kurse: **live** (fast_info / 5m) in EUR · Seite neu laden aktualisiert")
+    st.success("Live-Kurse geladen")
 elif positions:
-    st.caption("Kurse: gespeicherter Stand")
+    st.warning("Live-Kurse nicht geladen – gespeicherter Stand")
 
 if pf:
     cash = float(pf.get("cash") or 0)
