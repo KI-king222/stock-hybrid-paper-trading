@@ -1,4 +1,4 @@
-"""Charts – Datenstand Europe/Berlin + Live-Punkt am Ende."""
+"""Charts – echte EUR-Kurse, Einstand ohne Series-Scale (1T/1W konsistent)."""
 from __future__ import annotations
 
 from typing import Optional
@@ -53,6 +53,7 @@ def get_price_history(
         raw = raw_live_price(ticker)
         if raw is not None:
             live_eur = to_eur(raw, ticker)
+    # Nur Endpunkt an Live – keine Skalierung der ganzen Serie
     if live_eur and live_eur > 0:
         now_b = pd.Timestamp.now(tz="Europe/Berlin").tz_localize(None)
         last_t = df["Date"].iloc[-1]
@@ -66,32 +67,11 @@ def get_price_history(
     return df[["Date", "Kurs"]].reset_index(drop=True)
 
 
-def snap_to_einstand(
-    hist: pd.DataFrame, avg: float, buy_dt: Optional[pd.Timestamp]
-) -> pd.DataFrame:
-    if hist is None or hist.empty or not avg or avg <= 0:
-        return hist
-    h = hist.copy()
-    if buy_dt is not None and not pd.isna(buy_dt):
-        buy_naive = pd.Timestamp(buy_dt)
-        if buy_naive.tzinfo is not None:
-            buy_naive = buy_naive.tz_localize(None)
-        i = int((h["Date"] - buy_naive).abs().idxmin())
-    else:
-        i = len(h) - 1
-    ref = float(h.loc[i, "Kurs"])
-    if ref <= 0:
-        return h
-    scale = avg / ref
-    if 0.95 <= scale <= 1.05:
-        h["Kurs"] = h["Kurs"] * scale
-    return h
-
-
 def render_position_charts(positions: dict):
     st.subheader("Kursverlauf (EUR)")
     st.caption(
-        "**1T** = heute. DE = Intraday. US vor 15:30 CET = oft Freitagsschluss (~21 Uhr CET) – Börse, kein Bug."
+        "Einstand = gebuchter Kaufkurs. Kurve = echte Marktpreise. "
+        "1T und 1W nutzen denselben Maßstab (kein Verzerren)."
     )
     period_config = {
         "1T": {"period": "1d", "interval": "5m"},
@@ -104,7 +84,7 @@ def render_position_charts(positions: dict):
     selected_label = st.radio(
         "Zeitraum",
         list(period_config.keys()),
-        index=0,
+        index=1,
         horizontal=True,
         label_visibility="collapsed",
         key="hybrid_chart_period",
@@ -132,13 +112,6 @@ def render_position_charts(positions: dict):
         try:
             avg = round(float(pos.get("avg_cost") or 0), 2)
             live = float(pos.get("current_price") or avg)
-            opened = pos.get("opened_at") or pos.get("last_action_at")
-            buy_dt = None
-            try:
-                if opened:
-                    buy_dt = pd.to_datetime(opened)
-            except Exception:
-                buy_dt = None
 
             hist = get_price_history(
                 ticker, period=cfg["period"], interval=cfg["interval"], live_eur=live
@@ -146,14 +119,15 @@ def render_position_charts(positions: dict):
             if hist is None or hist.empty:
                 st.info(f"Kein Kursverlauf für {ticker}.")
                 continue
-            hist = snap_to_einstand(hist, avg, buy_dt)
             hist = hist.reset_index(drop=True)
             hist["i"] = hist.index.astype(int)
 
             last_dt = hist["Date"].iloc[-1]
             stand = last_dt.strftime("%d.%m. %H:%M") if pd.notna(last_dt) else "?"
             last_px = float(hist["Kurs"].iloc[-1])
-            st.caption(f"**{ticker}** Datenstand: **{stand}** · {last_px:.2f} €")
+            st.caption(
+                f"**{ticker}** Stand **{stand}** · Kurs **{last_px:.2f} €** · Einstand **{avg:.2f} €**"
+            )
 
             y_min = min(float(hist["Kurs"].min()), avg if avg else float(hist["Kurs"].min()))
             y_max = max(float(hist["Kurs"].max()), avg if avg else float(hist["Kurs"].max()))
@@ -166,7 +140,7 @@ def render_position_charts(positions: dict):
             tick_idx = sorted(set(tick_idx))
             ticktext = [hist.loc[i, "Date"].strftime("%d.%m %H:%M") for i in tick_idx]
             ccy = native_currency(ticker)
-            us = " · US oft Fr-Schluss bis 15:30" if ccy != "EUR" else ""
+            us = " · US" if ccy != "EUR" else ""
             title = f"{ticker} · {selected_label} · EUR · Stand {stand}{us}"
 
             fig = go.Figure()
