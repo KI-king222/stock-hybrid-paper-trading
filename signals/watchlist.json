@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-11-09T23:22:00",
+  "updated_at": "2026-11-10T23:20:00",
   "scale": "1 = hoch (nahe Interesse), 2 = mittel, 3 = niedrig",
   "items": [
     {
@@ -23,7 +23,7 @@
       "title": "SAP",
       "priority": 2,
       "status": "active",
-      "reason": "Im Hybrid-Depot gehalten (13 Stk. @207.33, P&L ~+3.4%), Cloud/AI-These intakt (Q3 Backlog +26% cc), Score 46 \u2013 weiter beobachten",
+      "reason": "Im Hybrid-Depot gehalten (13 Stk. @207.33, Algo P&L +3.7%, Score 46.3), Cloud/AI-These intakt (Q3 Backlog +26% cc) \u2013 weiter beobachten",
       "added_at": "2026-10-23"
     },
     {
@@ -63,7 +63,7 @@
       "title": "Siemens Energy",
       "priority": 2,
       "status": "active",
-      "reason": "Im Hybrid-Depot gehalten (20 Stk. @128.46, P&L ~-6.7%), These intakt (Backlog/Gas-Demand/Guidance), Algo h\u00e4lt (Score/Momentum schwach) \u2013 beobachten f\u00fcr m\u00f6glichen Nachkauf bei tieferem Dip und besserem Score",
+      "reason": "Im Hybrid-Depot gehalten (20 Stk. @128.46, Algo P&L -4.7%, Score 26.0), These intakt (Backlog/Gas-Demand/Guidance), Algo h\u00e4lt (Momentum schwach) \u2013 beobachten f\u00fcr m\u00f6glichen Nachkauf bei tieferem Dip und besserem Score",
       "added_at": "2026-11-06"
     },
     {
@@ -71,7 +71,7 @@
       "title": "Adidas",
       "priority": 2,
       "status": "active",
-      "reason": "Im Hybrid-Depot gehalten (9 Stk. @174.55, P&L ~0%, Score 64) \u2013 Qualit\u00e4t/Consumer-Zyklus beobachten, These pr\u00fcfen",
+      "reason": "Im Hybrid-Depot gehalten (9 Stk. @174.55, Algo P&L +2.2%, Score 64.3) \u2013 Qualit\u00e4t/Consumer-Zyklus beobachten, These pr\u00fcfen",
       "added_at": "2026-11-08"
     },
     {
@@ -79,7 +79,7 @@
       "title": "Microsoft",
       "priority": 2,
       "status": "active",
-      "reason": "Im Hybrid-Depot gehalten (3 Stk. @472.57, P&L ~+0.3%, Score 49) \u2013 AI/Cloud-Qualit\u00e4t, weiter beobachten",
+      "reason": "Im Hybrid-Depot gehalten (3 Stk. @472.57, Algo P&L +2.8%, Score 49.4) \u2013 AI/Cloud-Qualit\u00e4t, weiter beobachten",
       "added_at": "2026-11-08"
     },
     {
@@ -87,7 +87,7 @@
       "title": "Visa",
       "priority": 3,
       "status": "active",
-      "reason": "Im Hybrid-Depot gehalten (4 Stk. @376.42, P&L ~+0.3%, Score 37) \u2013 Payment-Qualit\u00e4t beobachten, Valuation/These pr\u00fcfen",
+      "reason": "Im Hybrid-Depot gehalten (4 Stk. @376.42, Algo P&L -0.1%, Score 49.0) \u2013 Payment-Qualit\u00e4t beobachten, Valuation/These pr\u00fcfen",
       "added_at": "2026-11-08"
     }
   ]
