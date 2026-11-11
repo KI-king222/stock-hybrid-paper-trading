@@ -1000,6 +1000,69 @@
         "SAP.DE": 210.75,
         "BAS.DE": 54.28
       }
+    },
+    {
+      "date": "2026-11-11T01:21:35",
+      "source": "Hybrid A: Algo + KI-Gate (Kurse EUR)",
+      "n_signals": 5,
+      "decisions": [
+        {
+          "ticker": "SAP.DE",
+          "algo_action": "halten",
+          "final": "halten",
+          "gate": "halten – Gate nicht anwendbar",
+          "score": 48.3
+        },
+        {
+          "ticker": "ENR.DE",
+          "algo_action": "halten",
+          "final": "halten",
+          "gate": "halten – Gate nicht anwendbar",
+          "score": 32.8
+        },
+        {
+          "ticker": "ADS.DE",
+          "algo_action": "halten",
+          "final": "halten",
+          "gate": "halten – Gate nicht anwendbar",
+          "score": 68.3
+        },
+        {
+          "ticker": "MSFT",
+          "algo_action": "halten",
+          "final": "halten",
+          "gate": "halten – Gate nicht anwendbar",
+          "score": 49.4
+        },
+        {
+          "ticker": "V",
+          "algo_action": "halten",
+          "final": "halten",
+          "gate": "halten – Gate nicht anwendbar",
+          "score": 49.0
+        }
+      ],
+      "cash": 475.19,
+      "equity": 10292.49,
+      "external_profit": 242.0,
+      "wealth": 10534.49,
+      "positions": [
+        "SAP.DE",
+        "ENR.DE",
+        "ADS.DE",
+        "MSFT",
+        "V"
+      ],
+      "prices_eur_sample": {
+        "BAS.DE": 53.85,
+        "BMW.DE": 58.86,
+        "NVDA": 160.0526,
+        "ALV.DE": 457.0,
+        "HNR1.DE": 289.0,
+        "IFX.DE": 48.625,
+        "DHL.DE": 58.64,
+        "GOOGL": 258.1248
+      }
     }
   ]
 }
