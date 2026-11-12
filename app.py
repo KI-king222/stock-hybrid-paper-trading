@@ -1,4 +1,4 @@
-"""Streamlit Hybrid – Live-Kurse EUR, Charts v3 ohne Scale."""
+"""Streamlit Hybrid – Live-Kurse EUR, Charts v5 Einstand am Kauftag."""
 from __future__ import annotations
 
 import json
@@ -27,7 +27,7 @@ st.markdown(
 )
 
 st.title("🔗 Hybrid Paper Trading")
-st.caption(f"Live-Kurse EUR · Charts **{CHART_VERSION}** (Einstand ohne Kurven-Scale)")
+st.caption(f"Live-Kurse EUR · Charts **{CHART_VERSION}** · Einstand am Kauftag")
 
 
 def load(path: Path):
@@ -132,7 +132,7 @@ if status:
     st.info(status.get("headline") or status.get("last_run") or "")
 
 st.divider()
-render_position_charts(positions)
+render_position_charts(positions, trades=trades)
 
 st.divider()
 st.subheader("Trade-Historie")
