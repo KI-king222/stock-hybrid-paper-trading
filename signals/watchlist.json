@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-11-12T23:21:00",
+  "updated_at": "2026-11-13T23:21:00",
   "scale": "1 = hoch (nahe Interesse), 2 = mittel, 3 = niedrig",
   "items": [
     {
@@ -7,7 +7,7 @@
       "title": "ASML Holding",
       "priority": 2,
       "status": "active",
-      "reason": "Monopol Lithographie, AI-Chip-Demand stark (Backlog bis 2030), hohe Bewertung/Volatilität – weiter beobachten für möglichen Einstieg",
+      "reason": "Monopol Lithographie, AI-Chip-Demand stark (Backlog bis 2030), hohe Bewertung/Volatilität – weiter beobachten für möglichen Einstieg bei Dip",
       "added_at": "2026-10-23"
     },
     {
@@ -23,7 +23,7 @@
       "title": "SAP",
       "priority": 2,
       "status": "active",
-      "reason": "Im Hybrid-Depot gehalten (13 Stk. @207.33, Algo P&L +3.4%, Score 44.3), Cloud/AI-These intakt (Q3 Backlog +26% cc) – weiter beobachten",
+      "reason": "Im Hybrid-Depot gehalten (13 Stk. @207.33, Algo P&L +4.2%, Score 44.3), Cloud/AI-These intakt (Q3 Backlog stark) – weiter beobachten",
       "added_at": "2026-10-23"
     },
     {
@@ -55,7 +55,7 @@
       "title": "Munich Re",
       "priority": 2,
       "status": "active",
-      "reason": "Vollverkauft im Hybrid, Dividendenqualität und Score solide (Algo 41.5) – weiter beobachten",
+      "reason": "Vollverkauft im Hybrid, Dividendenqualität und Score solide – weiter beobachten",
       "added_at": "2026-11-06"
     },
     {
@@ -63,7 +63,7 @@
       "title": "Siemens Energy",
       "priority": 2,
       "status": "active",
-      "reason": "Im Hybrid-Depot gehalten (20 Stk. @128.46, Algo P&L +1.9%, Score 31.5), These intakt (Backlog/Gas-Demand/Guidance/Rekordjahr), Algo hält – beobachten für möglichen Nachkauf bei besserem Score/Dip",
+      "reason": "Im Hybrid-Depot gehalten (20 Stk. @128.46, Algo P&L +1.7%, Score 57.2), These intakt (Backlog/Gas-Demand/Guidance/Rekordjahr), Algo hält – beobachten für möglichen Nachkauf bei besserem Score/Dip",
       "added_at": "2026-11-06"
     },
     {
@@ -71,7 +71,7 @@
       "title": "Adidas",
       "priority": 2,
       "status": "active",
-      "reason": "Im Hybrid-Depot gehalten (9 Stk. @174.55, Algo P&L +1.5%, Score 61.7) – Qualität/Consumer-Zyklus beobachten, These prüfen",
+      "reason": "Im Hybrid-Depot gehalten (9 Stk. @174.55, Algo P&L +1.4%, Score 58.7) – Qualität/Consumer-Zyklus beobachten, These prüfen",
       "added_at": "2026-11-08"
     },
     {
@@ -79,7 +79,7 @@
       "title": "Microsoft",
       "priority": 2,
       "status": "active",
-      "reason": "Im Hybrid-Depot gehalten (3 Stk. @472.57, Algo P&L -0.7%, Score 41.4) – AI/Cloud-Qualität, weiter beobachten",
+      "reason": "Im Hybrid-Depot gehalten (3 Stk. @472.57, Algo P&L +0.0%, Score 42.4) – AI/Cloud-Qualität, weiter beobachten",
       "added_at": "2026-11-08"
     },
     {
@@ -87,7 +87,7 @@
       "title": "Visa",
       "priority": 3,
       "status": "active",
-      "reason": "Im Hybrid-Depot gehalten (4 Stk. @376.42, Algo P&L +1.8%, Score 47.0) – Payment-Qualität beobachten, Valuation/These prüfen",
+      "reason": "Im Hybrid-Depot gehalten (4 Stk. @376.42, Algo P&L +0.9%, Score 49.0) – Payment-Qualität beobachten, Valuation/These prüfen",
       "added_at": "2026-11-08"
     }
   ]
