@@ -1,5 +1,5 @@
 {
-  "date": "2026-11-15T22:25:40",
+  "date": "2026-11-17T04:03:42",
   "signals": [
     {
       "ticker": "SAP.DE",
@@ -7,67 +7,67 @@
       "shares": null,
       "score": 46.3,
       "reason": "Halten · P&L +4.6% · Score 46",
-      "source_date": "2026-11-14T01:18:13"
+      "source_date": "2026-11-17T03:26:45"
     },
     {
       "ticker": "ENR.DE",
       "action": "halten",
       "shares": null,
-      "score": 61.2,
-      "reason": "Halten · P&L +0.8% · Score 61",
-      "source_date": "2026-11-14T01:18:13"
+      "score": 59.2,
+      "reason": "Halten · P&L -1.0% · Score 59",
+      "source_date": "2026-11-17T03:26:45"
     },
     {
       "ticker": "ADS.DE",
       "action": "halten",
       "shares": null,
-      "score": 60.7,
-      "reason": "Halten · P&L +1.8% · Score 61",
-      "source_date": "2026-11-14T01:18:13"
+      "score": 58.7,
+      "reason": "Halten · P&L +1.4% · Score 59",
+      "source_date": "2026-11-17T03:26:45"
     },
     {
       "ticker": "MSFT",
       "action": "halten",
       "shares": null,
-      "score": 45.4,
-      "reason": "Halten · P&L +0.3% · Score 45",
-      "source_date": "2026-11-14T01:18:13"
+      "score": 42.4,
+      "reason": "Halten · P&L -0.4% · Score 42",
+      "source_date": "2026-11-17T03:26:45"
     },
     {
       "ticker": "V",
       "action": "halten",
       "shares": null,
       "score": 47.0,
-      "reason": "Halten · P&L +2.4% · Score 47",
-      "source_date": "2026-11-14T01:18:13"
+      "reason": "Halten · P&L +2.9% · Score 47",
+      "source_date": "2026-11-17T03:26:45"
     }
   ],
   "scores": {
-    "AI.PA": 26.1,
-    "OR.PA": 20.3,
-    "ENR.DE": 61.2,
-    "JPM": 33.4,
-    "IFX.DE": 43.7,
     "NVDA": 19.2,
-    "BMW.DE": -5.7,
-    "MBG.DE": 8.4,
-    "MC.PA": 28.8,
-    "ALV.DE": 33.1,
-    "HNR1.DE": 23.6,
-    "DHL.DE": 21.6,
-    "AIR.DE": 9.5,
-    "ADS.DE": 60.7,
-    "META": 23.2,
-    "SIE.DE": 55.8,
-    "SAP.DE": 46.3,
-    "AMZN": 4.9,
-    "AAPL": 18.0,
-    "V": 47.0,
+    "DHL.DE": 20.6,
+    "SIE.DE": 53.8,
+    "AIR.DE": 4.5,
+    "GOOGL": -9.1,
+    "MUV2.DE": 39.5,
+    "ADS.DE": 58.7,
+    "AI.PA": 26.1,
+    "MC.PA": 26.8,
+    "RWE.DE": -13.7,
+    "MSFT": 42.4,
+    "ASML.AS": 33.8,
+    "OR.PA": 24.3,
     "BAS.DE": 21.9,
-    "MUV2.DE": 45.5,
-    "ASML.AS": 37.8,
-    "GOOGL": -0.1,
-    "MSFT": 45.4,
-    "RWE.DE": -14.7
+    "BMW.DE": -6.7,
+    "V": 47.0,
+    "SAP.DE": 46.3,
+    "MBG.DE": 8.4,
+    "AMZN": -7.1,
+    "AAPL": 16.0,
+    "ALV.DE": 31.3,
+    "JPM": 29.4,
+    "HNR1.DE": 25.6,
+    "ENR.DE": 59.2,
+    "IFX.DE": 34.7,
+    "META": 17.2
   }
 }
