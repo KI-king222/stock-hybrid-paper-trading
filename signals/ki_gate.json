@@ -1,7 +1,7 @@
 {
-  "updated_at": "2026-11-22T23:21:00",
+  "updated_at": "2026-11-23T23:22:00",
   "source": "Grok Automation",
   "blocks": [],
   "half": [],
-  "notes": "Algo-Lauf 21.11.2026 (decisions_log letzter Lauf + algo_signals.json): alle Aktionen halten – SAP.DE (P&L -10.0%, Score 20.3, Hybrid curr 187.02), ENR.DE (P&L -9.2%, Score 52.2, curr 126.7), ADS.DE (P&L -5.5%, Score 50.7, curr 172.2), MSFT (P&L -6.5%, Score 30.4, curr 441.69), V (P&L -2.7%, Score 35.0, curr 366.34). Hybrid-Portfolio: SAP 13@207.33, ENR 20@128.46, ADS 9@174.55, MSFT 3@472.57, V 4@376.42, Cash ~475. Keine Trade-Aktionen pending. Default allow (keine block/half): bei halten weder block noch half. KI-Kontext (stock-paper-trading): Thesen intakt (SAP Cloud/AI stark, ENR Backlog/Guidance/Rekordjahr intakt, kein Auto-Sell bei Minus), Scores akzeptabel, keine gebrochene These oder extremes Risiko. Gehirn leer (keine Episode, kein echtes Lernen bei reinem Halten). Watchlist aktualisiert. Kein Hybrid-Trade. Algo führt."
+  "notes": "Algo-Lauf (decisions_log letzter Lauf + algo_signals.json 2026-11-21): alle Aktionen halten – SAP.DE (P&L -10.0%, Score 20.3, Hybrid curr 187.02), ENR.DE (P&L -9.2%, Score 52.2, curr 126.7), ADS.DE (P&L -5.5%, Score 50.7, curr 172.2), MSFT (P&L -6.5%, Score 30.4, curr 441.69), V (P&L -2.7%, Score 35.0, curr 366.34). Hybrid-Portfolio: SAP 13@207.33, ENR 20@128.46, ADS 9@174.55, MSFT 3@472.57, V 4@376.42, Cash ~475. Keine Trade-Aktionen pending. Default allow (keine block/half): bei halten weder block noch half. KI-Kontext (stock-paper-trading): Thesen intakt (SAP Cloud/AI stark, ENR Backlog/Guidance/Rekordjahr intakt, kein Auto-Sell bei Minus; KI hat zusätzlich AAPL/NVDA mit Verlusten). Scores akzeptabel (ENR/ADS hoch), keine gebrochene These oder extremes Risiko. Gehirn leer (keine Episode, kein echtes Lernen bei reinem Halten). Watchlist aktualisiert. Kein Hybrid-Trade. Algo führt."
 }
