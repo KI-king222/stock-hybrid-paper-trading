@@ -1,73 +1,73 @@
 {
-  "date": "2026-11-21T02:38:38",
+  "date": "2026-11-24T05:24:32",
   "signals": [
     {
       "ticker": "SAP.DE",
       "action": "halten",
       "shares": null,
       "score": 20.3,
-      "reason": "Halten · P&L -10.0% · Score 20 · Markt schwach (kein Zukauf)",
-      "source_date": "2026-11-21T01:59:23"
+      "reason": "Halten · P&L -8.7% · Score 20 · Markt schwach (kein Zukauf)",
+      "source_date": "2026-11-24T05:09:41"
     },
     {
       "ticker": "ENR.DE",
       "action": "halten",
       "shares": null,
-      "score": 52.2,
-      "reason": "Halten · P&L -9.2% · Score 52 · Markt schwach (kein Zukauf)",
-      "source_date": "2026-11-21T01:59:23"
+      "score": 37.2,
+      "reason": "Halten · P&L -2.9% · Score 37 · Markt schwach (kein Zukauf)",
+      "source_date": "2026-11-24T05:09:41"
     },
     {
       "ticker": "ADS.DE",
       "action": "halten",
       "shares": null,
-      "score": 50.7,
-      "reason": "Halten · P&L -5.5% · Score 51 · Markt schwach (kein Zukauf)",
-      "source_date": "2026-11-21T01:59:23"
+      "score": 37.7,
+      "reason": "Halten · P&L -3.7% · Score 38 · Markt schwach (kein Zukauf)",
+      "source_date": "2026-11-24T05:09:41"
     },
     {
       "ticker": "MSFT",
       "action": "halten",
       "shares": null,
       "score": 30.4,
-      "reason": "Halten · P&L -6.5% · Score 30 · Markt schwach (kein Zukauf)",
-      "source_date": "2026-11-21T01:59:23"
+      "reason": "Halten · P&L -4.5% · Score 30 · Markt schwach (kein Zukauf)",
+      "source_date": "2026-11-24T05:09:41"
     },
     {
       "ticker": "V",
       "action": "halten",
       "shares": null,
-      "score": 35.0,
-      "reason": "Halten · P&L -2.7% · Score 35 · Markt schwach (kein Zukauf)",
-      "source_date": "2026-11-21T01:59:23"
+      "score": 42.0,
+      "reason": "Halten · P&L -0.4% · Score 42 · Markt schwach (kein Zukauf)",
+      "source_date": "2026-11-24T05:09:41"
     }
   ],
   "scores": {
-    "BMW.DE": -16.7,
-    "AAPL": 12.0,
-    "SAP.DE": 20.3,
+    "IFX.DE": 12.7,
+    "ENR.DE": 37.2,
+    "AIR.DE": -16.5,
+    "SIE.DE": 27.8,
+    "MC.PA": 12.8,
+    "BMW.DE": -24.7,
+    "NVDA": 32.3,
+    "MSFT": 30.4,
+    "MUV2.DE": 33.5,
     "OR.PA": 8.3,
-    "NVDA": 13.3,
-    "ENR.DE": 52.2,
-    "AIR.DE": -1.2,
-    "ALV.DE": 18.3,
-    "MUV2.DE": 32.5,
-    "ASML.AS": 29.8,
-    "HNR1.DE": 16.6,
-    "AMZN": -7.1,
+    "AAPL": 14.0,
+    "ASML.AS": 17.8,
+    "RWE.DE": -31.7,
+    "HNR1.DE": 21.6,
+    "GOOGL": -7.1,
+    "ADS.DE": 37.7,
     "BAS.DE": 0.9,
-    "V": 35.0,
-    "MC.PA": 19.8,
-    "SIE.DE": 46.1,
-    "RWE.DE": -22.7,
-    "MBG.DE": -14.6,
-    "GOOGL": -24.1,
-    "META": 4.2,
-    "IFX.DE": 41.5,
-    "JPM": 13.4,
-    "DHL.DE": 11.6,
-    "ADS.DE": 50.7,
+    "JPM": 14.4,
     "AI.PA": 18.1,
-    "MSFT": 30.4
+    "AMZN": -6.1,
+    "META": 9.2,
+    "MBG.DE": -14.6,
+    "DHL.DE": -0.4,
+    "ALV.DE": 18.3,
+    "SAP.DE": 20.3,
+    "V": 42.0
   }
 }
