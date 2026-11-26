@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-11-25T23:23:00",
+  "updated_at": "2026-11-26T23:22:00",
   "scale": "1 = hoch (nahe Interesse), 2 = mittel, 3 = niedrig",
   "items": [
     {
@@ -7,7 +7,7 @@
       "title": "ASML Holding",
       "priority": 1,
       "status": "active",
-      "reason": "Monopol Lithographie, AI-Chip-Demand stark (Backlog bis 2030), Score 31.8 – Premium-Bewertung, weiter beobachten f\u00fcr m\u00f6glichen Einstieg bei Dip",
+      "reason": "Monopol Lithographie, AI-Chip-Demand stark (Backlog bis 2030), Score 17.8 – Premium-Bewertung, weiter beobachten für möglichen Einstieg bei Dip",
       "added_at": "2026-10-23"
     },
     {
@@ -15,7 +15,7 @@
       "title": "Siemens Energy",
       "priority": 1,
       "status": "active",
-      "reason": "Im Hybrid-Depot gehalten (20 Stk. @128.46, curr 126.46, Score 57.2 hoch), These intakt (Backlog/Gas-Demand/Guidance/Rekordjahr), Algo h\u00e4lt (P&L ~-9.5%) – beobachten f\u00fcr m\u00f6glichen Nachkauf bei besserem Markt/Dip",
+      "reason": "Im Hybrid-Depot gehalten (20 Stk. @128.46, curr 117.88, Score 30.2), These intakt (Backlog/Gas-Demand/Guidance/Rekordjahr), Algo hält (P&L ~-8.2% bis -13.7%) – beobachten für möglichen Nachkauf bei besserem Markt/Dip",
       "added_at": "2026-11-06"
     },
     {
@@ -23,7 +23,7 @@
       "title": "Micron Technology",
       "priority": 2,
       "status": "active",
-      "reason": "AI-Memory / starke Berichtslage, extreme Volatilit\u00e4t – Qualit\u00e4t beobachten, nicht kaufreif",
+      "reason": "AI-Memory / starke Berichtslage, extreme Volatilität – Qualität beobachten, nicht kaufreif",
       "added_at": "2026-10-23"
     },
     {
@@ -31,7 +31,7 @@
       "title": "SAP",
       "priority": 2,
       "status": "active",
-      "reason": "Im Hybrid-Depot gehalten (13 Stk. @207.33, curr 186.34, ~-10.1%, Score 20.3), Cloud/AI-These intakt (Q3 Backlog stark) – weiter beobachten, Algo h\u00e4lt bei schwachem Markt",
+      "reason": "Im Hybrid-Depot gehalten (13 Stk. @207.33, curr 190.08, ~-8.3%, Score 31.3), Cloud/AI-These intakt (Q3 Backlog stark) – weiter beobachten, Algo hält bei schwachem Markt",
       "added_at": "2026-10-23"
     },
     {
@@ -39,7 +39,7 @@
       "title": "Adidas",
       "priority": 2,
       "status": "active",
-      "reason": "Im Hybrid-Depot gehalten (9 Stk. @174.55, curr 168.1, Score 42.7) – Qualit\u00e4t/Consumer-Zyklus beobachten, These pr\u00fcfen, Algo h\u00e4lt (P&L ~-3.7%)",
+      "reason": "Im Hybrid-Depot gehalten (9 Stk. @174.55, curr 168.15, Score 42.7) – Qualität/Consumer-Zyklus beobachten, These prüfen, Algo hält (P&L ~-3.7%)",
       "added_at": "2026-11-08"
     },
     {
@@ -47,7 +47,7 @@
       "title": "Microsoft",
       "priority": 2,
       "status": "active",
-      "reason": "Im Hybrid-Depot gehalten (3 Stk. @472.57, curr 453.12, Score 33.4) – AI/Cloud-Qualit\u00e4t, weiter beobachten (P&L ~-4.1%)",
+      "reason": "Im Hybrid-Depot gehalten (3 Stk. @472.57, curr 446.96, Score 33.4) – AI/Cloud-Qualität, weiter beobachten (P&L ~-5.4%)",
       "added_at": "2026-11-08"
     },
     {
@@ -55,15 +55,15 @@
       "title": "Visa",
       "priority": 2,
       "status": "active",
-      "reason": "Im Hybrid-Depot gehalten (4 Stk. @376.42, curr 380.65, Score 45.0) – Payment-Qualit\u00e4t beobachten, Valuation/These pr\u00fcfen (P&L ~+1.1%)",
+      "reason": "Im Hybrid-Depot gehalten (4 Stk. @376.42, curr 387.17, Score 50.0) – Payment-Qualität beobachten, Valuation/These prüfen (P&L ~+2.9%)",
       "added_at": "2026-11-08"
     },
     {
       "ticker": "HNR1.DE",
-      "title": "Hannover R\u00fcck",
+      "title": "Hannover Rück",
       "priority": 2,
       "status": "active",
-      "reason": "Vollverkauft im Hybrid, Guidance/Solvency stark, Qualit\u00e4t intakt (Score 23.6) – weiter beobachten f\u00fcr m\u00f6glichen Wiedereinstieg",
+      "reason": "Vollverkauft im Hybrid, Guidance/Solvency stark, Qualität intakt (Score 23.6) – weiter beobachten für möglichen Wiedereinstieg",
       "added_at": "2026-11-03"
     },
     {
@@ -71,7 +71,7 @@
       "title": "Munich Re",
       "priority": 2,
       "status": "active",
-      "reason": "Vollverkauft im Hybrid, Dividendenqualit\u00e4t und Score solide (35.5) – weiter beobachten",
+      "reason": "Vollverkauft im Hybrid, Dividendenqualität und Score solide (37.5) – weiter beobachten",
       "added_at": "2026-11-06"
     },
     {
@@ -79,7 +79,7 @@
       "title": "Siemens",
       "priority": 2,
       "status": "active",
-      "reason": "Industrie/Digitalisierung, Score 48.1 solide hoch – Qualit\u00e4t beobachten, m\u00f6glicher Kandidat",
+      "reason": "Industrie/Digitalisierung, Score 35.1 solide – Qualität beobachten, möglicher Kandidat",
       "added_at": "2026-11-19"
     },
     {
@@ -87,7 +87,7 @@
       "title": "Hewlett Packard Enterprise",
       "priority": 3,
       "status": "active",
-      "reason": "AI-Server/Backlog-Thema – noch nicht kaufreif, Valuation pr\u00fcfen",
+      "reason": "AI-Server/Backlog-Thema – noch nicht kaufreif, Valuation prüfen",
       "added_at": "2026-10-23"
     },
     {
@@ -95,7 +95,7 @@
       "title": "Bloom Energy",
       "priority": 3,
       "status": "active",
-      "reason": "AI-Power / Energie-Infrastruktur – hohe Volatilit\u00e4t, beobachten",
+      "reason": "AI-Power / Energie-Infrastruktur – hohe Volatilität, beobachten",
       "added_at": "2026-10-25"
     }
   ]
